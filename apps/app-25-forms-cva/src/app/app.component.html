@@ -1,0 +1,54 @@
+<div class="container">
+  <header class="header">
+    <strong class="strong">CONTROL VALUE ACCESSOR</strong>
+  </header>
+
+  <main class="main">
+    <form [formGroup]="form">
+      <div class="div__form">
+        <app-single-control-cva-component
+          [customErrorMessages]="errorMessages"
+          label="First name"
+          inputId="firstname"
+          formControlName="firstname"
+          class="div__form-separate"
+        ></app-single-control-cva-component>
+        <app-single-control-cva-component
+          label="Middle name"
+          inputId="middlename"
+          formControlName="middlename"
+          class="div__form-separate"
+        ></app-single-control-cva-component>
+        <app-single-control-cva-component
+          [customErrorMessages]="errorMessages"
+          label="Last name"
+          inputId="lastname"
+          formControlName="lastname"
+          class="div__form-separate"
+        ></app-single-control-cva-component>
+        <app-select-box-cva
+          [customErrorMessages]="errorMessages"
+          label="Hello"
+          selectId="myId"
+          [options]="['1', '2', '3']"
+          formControlName="age"
+        ></app-select-box-cva>
+        <!-- <div>
+          <app-cva-component
+            [inputFormGroup]="nameGrouping"
+            formGroupName="nameGroup"
+          ></app-cva-component>
+        </div> -->
+      </div>
+    </form>
+    <button
+      type="submit"
+      (click)="onSubmit()"
+      class="button"
+      [disabled]="!form.valid"
+    >
+      Submit
+    </button>
+    <button type="button" (click)="checker()">Check</button>
+  </main>
+</div>

@@ -1,0 +1,41 @@
+<form [formGroup]="quizForm" (ngSubmit)="onSubmit()">
+  <h1>Quiz form</h1>
+  <div formArrayName="questions">
+    @for ( question of quizForm.controls.questions.controls; track
+    questionIndex; let questionIndex = $index; ) {
+    <div class="question" [formGroupName]="questionIndex">
+      <input
+        type="text"
+        formControlName="questionName"
+        placeholder="Write the question"
+      />
+      <span class="remove" (mousedown)="removeQuestion(questionIndex)">X</span>
+      <div class="answers" formArrayName="answers">
+        <div>Answers</div>
+        @for (answer of question.controls.answers.controls; track answerIndex;
+        let answerIndex = $index;) {
+        <div class="answer" [formGroupName]="answerIndex">
+          <input type="text" placeholder="Answer" formControlName="text" />
+          <span
+            class="remove"
+            (mousedown)="removeAnswer(questionIndex, answerIndex)"
+            >X</span
+          >
+        </div>
+        }
+        <button
+          type="button"
+          class="add-answer"
+          (mousedown)="addAnswer(questionIndex)"
+        >
+          Add answer
+        </button>
+      </div>
+    </div>
+    }
+  </div>
+  <div>
+    <button type="button" (mousedown)="addQuestion()">Add question</button>
+  </div>
+  <div><button type="submit">Submit</button></div>
+</form>

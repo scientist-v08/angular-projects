@@ -1,0 +1,27 @@
+/* You can add global styles to this file, and also import other style files */
+/* You can add global styles to this file, and also import other style files */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  background-color: #5eead4;
+}
+
+.div__form {
+  display: flex;
+  flex-direction: column;
+  div:nth-child(2) {
+    margin-top: 1rem;
+  }
+}
+
+.div__form-separate {
+  display: flex;
+  justify-content: space-between;
+  gap: 6px;
+  margin-top: 3px;
+}

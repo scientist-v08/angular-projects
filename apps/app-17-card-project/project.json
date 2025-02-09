@@ -1,0 +1,106 @@
+{
+  "name": "app-17-card-project",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "app",
+  "sourceRoot": "apps/app-17-card-project/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/app-17-card-project",
+        "index": "apps/app-17-card-project/src/index.html",
+        "main": "apps/app-17-card-project/src/main.ts",
+        "polyfills": [],
+        "tsConfig": "apps/app-17-card-project/tsconfig.app.json",
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "apps/app-17-card-project/public",
+            "output": "/assets"
+          },
+          {
+            "glob": "profile1-500x500.png",
+            "input": "apps/app-17-card-project/public",
+            "output": "/assets"
+          },
+          {
+            "glob": "profile2-500x500.png",
+            "input": "apps/app-17-card-project/public",
+            "output": "/assets"
+          },
+          {
+            "glob": "profile3-500x500.png",
+            "input": "apps/app-17-card-project/public",
+            "output": "/assets"
+          }
+        ],
+        "styles": ["apps/app-17-card-project/src/styles.css"],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "buildTarget": "app-17-card-project:build:production"
+        },
+        "development": {
+          "buildTarget": "app-17-card-project:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "buildTarget": "app-17-card-project:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/app-17-card-project/jest.config.ts"
+      }
+    },
+    "serve-static": {
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "app-17-card-project:build",
+        "spa": true
+      }
+    }
+  }
+}

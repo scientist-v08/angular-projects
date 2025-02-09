@@ -1,0 +1,49 @@
+/* You can add global styles to this file, and also import other style files */
+/* You can add global styles to this file, and also import other style files */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-areas:
+    'comp1 comp2'
+    'comp3 comp4';
+  height: 90vh;
+  width: 80vw;
+}
+
+.container-one {
+  grid-area: comp1;
+  display: flex;
+  border: 1px solid #000;
+}
+
+.container-two {
+  grid-area: comp2;
+  display: flex;
+  border: 1px solid #000;
+}
+
+.container-three {
+  grid-area: comp3;
+  display: flex;
+  border: 1px solid #000;
+}
+
+.container-four {
+  grid-area: comp4;
+  display: flex;
+  border: 1px solid #000;
+}

@@ -1,0 +1,22 @@
+<div [formGroup]="inputFormGroup" class="div__form">
+  <div class="div__form-separate">
+    <label for="middleName">Middle name: </label>
+    <div class="validation_errors">
+      <input
+        id="middleName"
+        formControlName="middlename"
+        (blur)="onTouched()"
+      />
+      <small
+        class="text"
+        *ngIf="inputFormGroup.controls['middlename'].errors?.['required'] && inputFormGroup.controls['middlename'].touched"
+      >
+        Middle name is required
+      </small>
+    </div>
+  </div>
+  <div class="div__form-separate">
+    <label for="lastname">Last name: </label>
+    <input id="lastname" formControlName="lastname" (blur)="onTouched()" />
+  </div>
+</div>

@@ -1,0 +1,8 @@
+.validation_errors {
+  display: flex;
+  flex-direction: column;
+  margin-top: 0 !important;
+}
+.text {
+  color: red;
+}

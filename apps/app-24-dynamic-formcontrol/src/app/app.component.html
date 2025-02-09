@@ -1,0 +1,23 @@
+<form [formGroup]="dynamicFormControlForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="checker"
+      >Check box to check dynamic form control addition!</label
+    >
+    <input
+      type="checkbox"
+      id="checker"
+      formControlName="checkbox"
+      (change)="clickedCheckbox()"
+    />
+  </div>
+
+  @if (showInput) {
+  <div>
+    <label for="address">Add address</label>
+    <input type="text" id="address" formControlName="addressTextarea" />
+  </div>
+  }
+  <div>
+    <button type="submit">Submit</button>
+  </div>
+</form>

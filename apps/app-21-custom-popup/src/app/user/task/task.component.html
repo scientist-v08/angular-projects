@@ -1,0 +1,28 @@
+@if (addTask() === true) {
+  <app-new-task (close)="closePopup()"></app-new-task>
+}
+
+<section id="tasks">
+  <header>
+    <h2>{{selectedUserName()}}</h2>
+    <menu>
+      <button (mousedown)="showAddTaskPopup()">Add Task</button>
+    </menu>
+  </header>
+  @if (selectedUserTasks() !== undefined) {
+    @for (selectedUserTask of selectedUserTasks(); track selectedUserTask.id) {
+      <ul>
+        <li>
+          <article>
+            <h2>{{ selectedUserTask.title }}</h2>
+            <time>{{ selectedUserTask.dueDate | date: "dd-MMM-yyyy" }}</time>
+            <p>{{ selectedUserTask.summary }}</p>
+            <p class="actions">
+              <button>Complete</button>
+            </p>
+          </article>
+        </li>
+      </ul>
+    }
+  }
+</section>

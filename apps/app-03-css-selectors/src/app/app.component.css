@@ -1,0 +1,20 @@
+p {
+  color: purple;
+}
+
+h1,
+h2 {
+  color: blue;
+}
+
+p span {
+  background-color: gold;
+}
+
+.gray {
+  color: gray;
+}
+
+#second {
+  font-style: italic;
+}

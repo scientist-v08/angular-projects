@@ -1,0 +1,20 @@
+<div class="card">
+  <h1>Welcome</h1>
+  <p>This is a centered card with some content in it.</p>
+  <p>{{ currencyValue() | currencyTransform }}</p>
+  <div>
+    <button [appStyleSelector]="'priority'" [value]="'high'">
+      Priority using directive
+    </button>
+  </div>
+  <div>
+    <button [appStyleSelector]="'status'" [value]="'open'">
+      Status using directive
+    </button>
+  </div>
+  <div appWrapContent>
+    <button [appStyleSelector]="'priority'" [value]="'high'">
+      Priority using directive
+    </button>
+  </div>
+</div>

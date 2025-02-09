@@ -1,0 +1,8 @@
+a {
+  color: #000;
+}
+a:hover,
+a:focus {
+  /*color: dodgerblue;*/
+  opacity: 0.6;
+}

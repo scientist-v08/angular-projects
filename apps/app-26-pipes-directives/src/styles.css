@@ -1,0 +1,127 @@
+/* You can add global styles to this file, and also import other style files */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f5f5f5;
+}
+
+/* Card styling */
+.card {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 300px;
+}
+
+.card h1 {
+  margin-bottom: 10px;
+  font-size: 1.5rem;
+}
+
+.card p {
+  margin-bottom: 20px;
+  color: #555;
+}
+
+.card button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.purple-button {
+  color: #9744d9;
+  background-color: #f6eefc;
+  cursor: default;
+  padding: 3px 6px;
+
+  &:focus {
+    box-shadow: none !important;
+    outline: none !important;
+  }
+}
+
+.orange-button {
+  color: #ff922d;
+  background-color: #fff7f0;
+  cursor: default;
+  padding: 3px 6px;
+
+  &:focus {
+    box-shadow: none !important;
+    outline: none !important;
+  }
+}
+
+.green-button {
+  color: #4dbd74;
+  background-color: #f0f9f3;
+  cursor: default;
+  padding: 3px 6px;
+
+  &:focus {
+    box-shadow: none !important;
+    outline: none !important;
+  }
+}
+
+.pink-button {
+  color: #ff54ee;
+  background-color: #ffebfd;
+  cursor: default;
+  padding: 3px 6px;
+
+  &:focus {
+    box-shadow: none !important;
+    outline: none !important;
+  }
+}
+
+.blue-button {
+  color: #1a73f7;
+  background-color: #ebf3fe;
+  cursor: default;
+  padding: 3px 6px;
+
+  &:focus {
+    box-shadow: none !important;
+    outline: none !important;
+  }
+}
+
+.red-button {
+  color: #f7281a;
+  background-color: #feedeb;
+  cursor: default;
+  padding: 3px 6px;
+
+  &:focus {
+    box-shadow: none !important;
+    outline: none !important;
+  }
+}
+
+.violet-button {
+  color: #d944ca;
+  background-color: #fceefa;
+  cursor: default;
+  padding: 3px 6px;
+
+  &:focus {
+    box-shadow: none !important;
+    outline: none !important;
+  }
+}
