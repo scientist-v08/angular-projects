@@ -1,26 +1,30 @@
 <header class="header">
   <section class="header__section section">
     <h1 class="header__h1">Little Taco Shop</h1>
-    <button class="section__button" (appOnClicked)="navBarStatus.set($event)">
+    <button
+      class="section__button"
+      (appOnClicked)="navBarStatus.set($event)"
+      [status]="navBarStatus()"
+    >
       <div class="section__icon"></div>
     </button>
   </section>
 
   <nav [appShowNav]="navBarStatus()" class="header__nav">
     <ul class="header__ul">
-      <li class="header__li">
+      <li (appHideNav)="navBarStatus.set(false)" class="header__li">
         <a routerLink="/">Home</a>
       </li>
-      <li class="header__li">
+      <li (appHideNav)="navBarStatus.set(false)" class="header__li">
         <a href="#menu">Menu</a>
       </li>
-      <li class="header__li">
+      <li (appHideNav)="navBarStatus.set(false)" class="header__li">
         <a routerLink="hours">Hours</a>
       </li>
-      <li class="header__li">
+      <li (appHideNav)="navBarStatus.set(false)" class="header__li">
         <a routerLink="contact">Contact</a>
       </li>
-      <li class="header__li">
+      <li (appHideNav)="navBarStatus.set(false)" class="header__li">
         <a routerLink="about">About</a>
       </li>
     </ul>

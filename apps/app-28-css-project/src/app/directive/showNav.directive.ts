@@ -4,6 +4,7 @@ import {
   inject,
   input,
   OnChanges,
+  output,
   Renderer2,
   SimpleChanges,
 } from '@angular/core';
@@ -14,6 +15,7 @@ import {
 })
 export class ShowNavDirective implements OnChanges {
   appShowNav = input.required<boolean>();
+  appNoShow = output<boolean>();
   private el = inject(ElementRef);
   private renderer = inject(Renderer2);
 
