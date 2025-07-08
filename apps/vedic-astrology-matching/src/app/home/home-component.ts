@@ -41,7 +41,7 @@ import { Router } from '@angular/router';
       </div>
       <!-- Second Row: Text (left) + Image (right) -->
       <div
-        class="flex flex-col lg:flex-row-reverse items-center justify-between"
+        class="flex flex-col lg:flex-row-reverse items-center justify-between mb-12"
       >
         <!-- Image: 40% width, max 1000px on desktop, 90vw on mobile -->
         <div class="w-full lg:w-[40%] max-w-[1000px] mb-6 lg:mb-0">
@@ -73,25 +73,93 @@ import { Router } from '@angular/router';
           </p>
         </div>
       </div>
-      <!-- Third Row: Centered Text + Button -->
-      <div class="flex flex-col items-center justify-center text-center mt-8">
-        <h3
-          class="relative font-cinzel text-2xl md:text-3xl leading-tight text-indigo-900 dark:text-amber-300 mb-6
+      <div class="flex flex-col lg:flex-row items-center justify-between mb-12">
+        <div class="w-full lg:w-[40%] max-w-[1000px] mb-6 lg:mb-0">
+          <img
+            [ngSrc]="'/assets/instructionsgimp.jpg'"
+            width="1000"
+            height="667"
+            priority
+            lazy
+            alt="Instructions"
+            class="w-full h-auto rounded-lg shadow-lg"
+          />
+        </div>
+        <div
+          class="w-full lg:w-[40%] flex flex-col items-center justify-center text-center"
+        >
+          <h5
+            class="font-cinzel text-3xl lg:text-4xl leading-tight text-indigo-900 dark:text-amber-300 mb-4"
+          >
+            To find your Raashi & Nakshatra
+          </h5>
+
+          <div
+            class="text-base lg:text-lg leading-relaxed font-inter text-left"
+          >
+            <ol class="list-decimal list-inside space-y-2">
+              <li>Click the below button and go to prokerala.com</li>
+              <li>
+                Input the following mandatory fields:
+                <ul class="list-disc list-inside ml-4">
+                  <li>Gender</li>
+                  <li>Date of birth (DOB)</li>
+                  <li>Time of birth</li>
+                  <li>Place of birth</li>
+                </ul>
+              </li>
+              <li>
+                Note the Raashi and Nakshatra of the bride and the groom and
+                input them in the matching tab.
+              </li>
+            </ol>
+          </div>
+
+          <a
+            href="https://www.prokerala.com/astrology/nakshatra-finder/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="mt-4 inline-block font-inter text-black bg-amber-200 dark:text-white dark:bg-pink-600 hover:bg-amber-100 dark:hover:bg-pink-500 focus:ring-2 focus:ring-amber-300 dark:focus:ring-pink-400 font-medium px-4 py-2 rounded-md transition-colors"
+          >
+            Click here to go to prokerala.com
+          </a>
+        </div>
+      </div>
+      <div
+        class="flex flex-col lg:flex-row-reverse items-center justify-between mb-12"
+      >
+        <div class="w-full lg:w-[40%] max-w-[1000px] mb-6 lg:mb-0">
+          <img
+            [ngSrc]="'/assets/oogwaygimp.jpg'"
+            width="1000"
+            height="667"
+            priority
+            lazy
+            alt="Instructions"
+            class="w-full h-auto rounded-lg shadow-lg"
+          />
+        </div>
+        <div
+          class="w-full lg:w-[40%] flex flex-col items-center justify-center text-center"
+        >
+          <h3
+            class="relative font-cinzel text-2xl md:text-3xl leading-tight text-indigo-900 dark:text-amber-300 mb-6
          before:content-['“'] before:font-serif before:absolute before:-top-3 before:-left-4
          before:text-6xl before:text-indigo-900 dark:before:text-amber-300 before:opacity-25
          after:content-['”'] after:font-serif after:absolute after:-bottom-6 after:-right-6
          after:text-6xl after:text-indigo-900 dark:after:text-amber-300 after:opacity-25"
-        >
-          One often meets their destiny on the path they wish to avoid
-        </h3>
-        <button
-          class="font-inter text-black bg-amber-300 dark:text-white dark:bg-pink-600 hover:bg-amber-100
+          >
+            One often meets their destiny on the path they wish to avoid
+          </h3>
+          <button
+            class="font-inter text-black bg-amber-200 dark:text-white dark:bg-pink-600 hover:bg-amber-100
           dark:hover:bg-pink-500 focus:ring-2 focus:ring-amber-300 dark:focus:ring-pink-400 font-medium
           px-4 py-2 rounded-md transition-colors"
-          (mousedown)="checkMatching()"
-        >
-          Click to check matching
-        </button>
+            (mousedown)="checkMatching()"
+          >
+            Click to check matching
+          </button>
+        </div>
       </div>
     </div>
   `,
