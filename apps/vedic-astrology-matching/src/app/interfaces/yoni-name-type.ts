@@ -1,0 +1,15 @@
+export type YoniName =
+  | 'Horse'
+  | 'Elephant'
+  | 'Sheep'
+  | 'Snake'
+  | 'Dog'
+  | 'Cat'
+  | 'Rat'
+  | 'Cow'
+  | 'Buffalo'
+  | 'Tiger'
+  | 'Deer'
+  | 'Monkey'
+  | 'Mongoose'
+  | 'Lion';

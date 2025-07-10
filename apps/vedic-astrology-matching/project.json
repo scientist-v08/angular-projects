@@ -35,6 +35,16 @@
             "glob": "about.jpg",
             "input": "apps/vedic-astrology-matching/public",
             "output": "/assets"
+          },
+          {
+            "glob": "instructionsgimp.jpg",
+            "input": "apps/vedic-astrology-matching/public",
+            "output": "/assets"
+          },
+          {
+            "glob": "oogwaygimp.jpg",
+            "input": "apps/vedic-astrology-matching/public",
+            "output": "/assets"
           }
         ],
         "styles": ["apps/vedic-astrology-matching/src/styles.css"],

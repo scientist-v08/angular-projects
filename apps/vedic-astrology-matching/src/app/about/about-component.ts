@@ -13,6 +13,7 @@ import { Component } from '@angular/core';
             [ngSrc]="'/assets/about.jpg'"
             width="1000"
             height="1338"
+            lazy
             priority
             alt="Astrologer photo"
             class="w-full h-auto rounded-lg shadow-lg"
@@ -33,7 +34,7 @@ import { Component } from '@angular/core';
             with Java Spring Boot and Angular. Yet, my heart remains aligned
             with the ancient stars. For detailed insights into your life&#39;s
             key moments like marriage, progeny, or deeper karmic questions you
-            may have reach out to me at: venkimanoj2&#64;gmail.com
+            may reach out to me at: venkimanoj2&#64;gmail.com
           </p>
         </div>
       </div>

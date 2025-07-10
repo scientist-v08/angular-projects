@@ -1,0 +1,70 @@
+import { RashiInfo } from '../interfaces/rashi-info-interface';
+
+export const rashis: RashiInfo[] = [
+  {
+    rashi: 'Aries',
+    position: 1,
+    ruler: 'Mars',
+    varna: 2,
+    vashya: 'Chatushpada',
+  },
+  {
+    rashi: 'Taurus',
+    position: 2,
+    ruler: 'Venus',
+    varna: 3,
+    vashya: 'Chatushpada',
+  },
+  {
+    rashi: 'Gemini',
+    position: 3,
+    ruler: 'Mercury',
+    varna: 4,
+    vashya: 'Dwipada',
+  },
+  {
+    rashi: 'Cancer',
+    position: 4,
+    ruler: 'Moon',
+    varna: 1,
+    vashya: 'Jalachara',
+  },
+  { rashi: 'Leo', position: 5, ruler: 'Sun', varna: 2, vashya: 'Vanachara' },
+  {
+    rashi: 'Virgo',
+    position: 6,
+    ruler: 'Mercury',
+    varna: 3,
+    vashya: 'Dwipada',
+  },
+  { rashi: 'Libra', position: 7, ruler: 'Venus', varna: 4, vashya: 'Dwipada' },
+  { rashi: 'Scorpio', position: 8, ruler: 'Mars', varna: 1, vashya: 'Keeta' },
+  {
+    rashi: 'Sagittarius',
+    position: 9,
+    ruler: 'Jupiter',
+    varna: 2,
+    vashya: 'Dwipada',
+  },
+  {
+    rashi: 'Capricorn',
+    position: 10,
+    ruler: 'Saturn',
+    varna: 3,
+    vashya: 'Chatushpada',
+  },
+  {
+    rashi: 'Aquarius',
+    position: 11,
+    ruler: 'Saturn',
+    varna: 4,
+    vashya: 'Dwipada',
+  },
+  {
+    rashi: 'Pisces',
+    position: 12,
+    ruler: 'Jupiter',
+    varna: 1,
+    vashya: 'Jalachara',
+  },
+];
