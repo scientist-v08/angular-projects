@@ -1,4 +1,15 @@
-import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
+import {
+  afterNextRender,
+  AfterViewChecked,
+  Component,
+  effect,
+  ElementRef,
+  inject,
+  OnDestroy,
+  OnInit,
+  signal,
+  viewChild,
+} from '@angular/core';
 import { SelectBoxComponent } from '../components/select-box-component';
 import {
   allPadas,
@@ -39,7 +50,9 @@ import { YoniMaitriGanaNadiCalculatorService } from '../services/yoni-maitri-gan
     YoniMaitriGanaNadiCalculatorService,
   ],
 })
-export class MatchCalculatorComponent implements OnInit, OnDestroy {
+export class MatchCalculatorComponent
+  implements OnInit, AfterViewChecked, OnDestroy
+{
   private varnaVashyaCalculator = inject(VarnaVashyaCalculatorService);
   private taraBhakutaCalculator = inject(TaraBhakutaCalculatorService);
   private yoniMaitriGanaNadiCalculatorService = inject(
@@ -81,12 +94,24 @@ export class MatchCalculatorComponent implements OnInit, OnDestroy {
   ninthScore: KutaIterator | null = null;
   nadiDosha = signal<boolean>(false);
   showCards = signal<boolean>(false);
+  divEl = viewChild<ElementRef>('scroll');
+  shouldScroll = signal<boolean>(false);
 
   ngOnInit(): void {
     this.trackBrideRaashiChanges();
     this.trackBrideNakshatraChanges();
     this.trackGroomRaashiChanges();
     this.trackGroomNakshatraChanges();
+  }
+
+  ngAfterViewChecked(): void {
+    if (this.shouldScroll() && this.divEl()) {
+      this.divEl()?.nativeElement.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+      this.shouldScroll.set(false);
+    }
   }
 
   ngOnDestroy(): void {
@@ -263,5 +288,6 @@ export class MatchCalculatorComponent implements OnInit, OnDestroy {
       this.ninthScore,
     ]);
     this.showCards.set(true);
+    this.shouldScroll.set(true);
   }
 }
