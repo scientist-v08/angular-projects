@@ -1,7 +1,6 @@
 {
   "buildCommand": "npx nx build vedic-astrology-matching",
   "outputDirectory": "dist/apps/vedic-astrology-matching/browser",
-  "cleanUrls": true,
   "routes": [
     {
       "src": "/(.*)",
