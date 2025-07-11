@@ -66,10 +66,10 @@ export class YoniMaitriGanaNadiCalculatorService {
       'Manushya Gana',
       'Raakshasa Gana',
     ];
-    const groomComment = `${groomInfo.gana} is born under ${
+    const groomComment = `${groomInfo.nakshatra} nakshatra is born under ${
       ganaMapper[groomInfo.gana]
     }. `;
-    const brideComment = `${brideInfo.gana} is born under ${
+    const brideComment = `${brideInfo.nakshatra} nakshatra is born under ${
       ganaMapper[brideInfo.gana]
     }. `;
     let ganaScore = 0;

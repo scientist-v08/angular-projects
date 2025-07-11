@@ -82,7 +82,7 @@
     </button>
   </div>
   @if (showCards()) {
-  <div class="flex flex-col-reverse">
+  <div class="flex flex-col-reverse" #scroll>
     @for (kuta of kutaIterator(); track $index) {
     <app-compatibility-card
       [index]="kuta.index"
