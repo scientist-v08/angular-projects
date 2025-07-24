@@ -8,11 +8,11 @@ import { Router } from '@angular/router';
   selector: 'app-home',
   template: `
     <!-- Desktop: 10% margin on both sides, flex row with image (40%, max 1000px) and text -->
-    <div class="container mx-auto px-4 lg:px-0 max-w-[100%] lg:max-w-[80%]">
+    <div class="container mx-auto px-4 md:px-0 max-w-[100%] md:max-w-[80%]">
       <!-- First Row: Image (left) + Text (right) -->
-      <div class="flex flex-col lg:flex-row items-center justify-between mb-12">
+      <div class="flex flex-col md:flex-row items-center justify-between mb-12">
         <!-- Image: 40% width, max 1000px on desktop, 90vw on mobile -->
-        <div class="w-full lg:w-[40%] max-w-[1000px] mb-6 lg:mb-0">
+        <div class="w-full md:w-[40%] max-w-[1000px] mb-6 md:mb-0">
           <img
             [ngSrc]="'/assets/desktop1gimp.jpg'"
             width="1000"
@@ -23,13 +23,13 @@ import { Router } from '@angular/router';
           />
         </div>
         <!-- Text: 40% width on desktop -->
-        <div class="w-full lg:w-[40%]">
+        <div class="w-full md:w-[40%]">
           <h2
-            class="font-cinzel text-3xl lg:text-4xl leading-tight text-indigo-900 dark:text-amber-300 mb-4"
+            class="font-cinzel text-3xl md:text-4xl leading-tight text-indigo-900 dark:text-amber-300 mb-4"
           >
             Find Your Cosmic Match
           </h2>
-          <p class="text-base lg:text-lg leading-relaxed font-inter">
+          <p class="text-base md:text-lg leading-relaxed font-inter">
             In the eternal dance of souls across lifetimes, the union of two
             beings through marriage is not merely a worldly contract. It is a
             karmic convergence, woven by threads of fate. The seers of old, with
@@ -41,10 +41,10 @@ import { Router } from '@angular/router';
       </div>
       <!-- Second Row: Text (left) + Image (right) -->
       <div
-        class="flex flex-col lg:flex-row-reverse items-center justify-between mb-12"
+        class="flex flex-col md:flex-row-reverse items-center justify-between mb-12"
       >
         <!-- Image: 40% width, max 1000px on desktop, 90vw on mobile -->
-        <div class="w-full lg:w-[40%] max-w-[1000px] mb-6 lg:mb-0">
+        <div class="w-full md:w-[40%] max-w-[1000px] mb-6 md:mb-0">
           <img
             [ngSrc]="'/assets/desktop2gimp.jpg'"
             width="1000"
@@ -55,13 +55,13 @@ import { Router } from '@angular/router';
           />
         </div>
         <!-- Text: 40% width on desktop -->
-        <div class="w-full lg:w-[40%]">
+        <div class="w-full md:w-[40%]">
           <h2
-            class="font-cinzel text-3xl lg:text-4xl leading-tight text-indigo-900 dark:text-amber-300 mb-4"
+            class="font-cinzel text-3xl md:text-4xl leading-tight text-indigo-900 dark:text-amber-300 mb-4"
           >
             Unlock Your Future Together
           </h2>
-          <p class="text-base lg:text-lg leading-relaxed font-inter">
+          <p class="text-base md:text-lg leading-relaxed font-inter">
             Within the sacred philosophy of Jyotisha lies the hidden knowledge
             of Bhagya (luck) the divine fortune or misfortune each soul brings
             into the life of another. Beyond mere fate, the stars also whisper
@@ -73,8 +73,8 @@ import { Router } from '@angular/router';
           </p>
         </div>
       </div>
-      <div class="flex flex-col lg:flex-row items-center justify-between mb-12">
-        <div class="w-full lg:w-[40%] max-w-[1000px] mb-6 lg:mb-0">
+      <div class="flex flex-col md:flex-row items-center justify-between mb-12">
+        <div class="w-full md:w-[40%] max-w-[1000px] mb-6 md:mb-0">
           <img
             [ngSrc]="'/assets/instructionsgimp.jpg'"
             width="1000"
@@ -86,16 +86,16 @@ import { Router } from '@angular/router';
           />
         </div>
         <div
-          class="w-full lg:w-[40%] flex flex-col items-center justify-center text-center"
+          class="w-full md:w-[40%] flex flex-col items-center justify-center text-center"
         >
           <h5
-            class="font-cinzel text-3xl lg:text-4xl leading-tight text-indigo-900 dark:text-amber-300 mb-4"
+            class="font-cinzel text-3xl md:text-4xl leading-tight text-indigo-900 dark:text-amber-300 mb-4"
           >
             To find your Raashi & Nakshatra
           </h5>
 
           <div
-            class="text-base lg:text-lg leading-relaxed font-inter text-left"
+            class="text-base md:text-lg leading-relaxed font-inter text-left"
           >
             <ol class="list-decimal list-inside space-y-2">
               <li>Click the below button and go to prokerala.com</li>
@@ -126,9 +126,9 @@ import { Router } from '@angular/router';
         </div>
       </div>
       <div
-        class="flex flex-col lg:flex-row-reverse items-center justify-between mb-12"
+        class="flex flex-col md:flex-row-reverse items-center justify-between mb-12"
       >
-        <div class="w-full lg:w-[40%] max-w-[1000px] mb-6 lg:mb-0">
+        <div class="w-full md:w-[40%] max-w-[1000px] mb-6 md:mb-0">
           <img
             [ngSrc]="'/assets/oogwaygimp.jpg'"
             width="1000"
@@ -140,7 +140,7 @@ import { Router } from '@angular/router';
           />
         </div>
         <div
-          class="w-full lg:w-[40%] flex flex-col items-center justify-center text-center"
+          class="w-full md:w-[40%] flex flex-col items-center justify-center text-center"
         >
           <h3
             class="relative font-cinzel text-2xl md:text-3xl leading-tight text-indigo-900 dark:text-amber-300 mb-6
