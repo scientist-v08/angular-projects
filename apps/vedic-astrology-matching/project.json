@@ -64,7 +64,13 @@
               "maximumError": "4kb"
             }
           ],
-          "outputHashing": "all"
+          "outputHashing": "all",
+          "outputPath": "dist/apps/vedic-astrology-matching",
+          "server": "apps/vedic-astrology-matching/src/main.server.ts",
+          "prerender": true,
+          "ssr": {
+            "entry": "apps/vedic-astrology-matching/server.ts"
+          }
         },
         "development": {
           "optimization": false,
