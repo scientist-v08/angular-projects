@@ -1,4 +1,5 @@
 {
   "buildCommand": "npx nx build vedic-astrology-matching",
-  "outputDirectory": "dist/apps/vedic-astrology-matching/browser"
+  "outputDirectory": "dist/apps/vedic-astrology-matching/browser",
+  "installCommand": "npm install --force"
 }
