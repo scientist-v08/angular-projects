@@ -33,7 +33,10 @@
     "app-28": "npx nx serve app-28-css-project --port 4228",
     "app-29": "npx nx serve app-29-tailwind-css-1 --port 4229",
     "app-30": "npx nx serve app-30-tailwind-css-2 --port 4230",
-    "app-31": "npx nx serve app-31-component-variety --port 4231"
+    "app-31": "npx nx serve app-31-component-variety --port 4231",
+    "app-32": "npx nx serve vedic-astrology-matching --port 4232",
+    "app-32:build": "npx nx build vedic-astrology-matching",
+    "app-32:ssr": "node dist/apps/vedic-astrology-matching/server/server.mjs"
   },
   "private": true,
   "dependencies": {
@@ -42,9 +45,11 @@
     "@angular/compiler": "~18.2.0",
     "@angular/core": "~18.2.0",
     "@angular/forms": "~18.2.0",
-    "@angular/platform-browser": "~18.2.0",
+    "@angular/platform-browser": "^18.2.13",
     "@angular/platform-browser-dynamic": "~18.2.0",
+    "@angular/platform-server": "^18.2.13",
     "@angular/router": "~18.2.0",
+    "@angular/ssr": "^18.2.20",
     "@fortawesome/angular-fontawesome": "^0.15.0",
     "@fortawesome/free-solid-svg-icons": "^6.5.2",
     "rxjs": "~7.8.0"
@@ -68,6 +73,7 @@
     "@swc-node/register": "~1.9.1",
     "@swc/core": "~1.5.7",
     "@swc/helpers": "~0.5.11",
+    "@types/express": "^5.0.3",
     "@types/jest": "^29.5.12",
     "@types/node": "18.16.9",
     "@typescript-eslint/utils": "^8.0.0",
