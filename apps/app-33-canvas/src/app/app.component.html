@@ -1,0 +1,23 @@
+<div
+  style="
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 25px;
+  "
+>
+  <canvas #tableCanvas width="900" height="700"></canvas>
+  <div style="display: flex; justify-content: center">
+    <button
+      style="
+        width: 25%;
+        padding: 5px;
+        background-color: ghostwhite;
+        border-radius: 7px;
+      "
+      (mousedown)="downloadImage()"
+    >
+      Download
+    </button>
+  </div>
+</div>
