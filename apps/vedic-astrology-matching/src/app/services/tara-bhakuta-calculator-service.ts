@@ -45,48 +45,48 @@ export class TaraBhakutaCalculatorService {
         return {
           comments: isBride
             ? ''
-            : `${brideNakshatra} nakshatra aligns with ${groomNakshatra}'s birth star, indicating a self-centric or potentially challenging influence.`,
+            : `${groomNakshatra} nakshatra aligns with ${brideNakshatra}'s birth star, genrally indicating a good luck`,
           score: 0,
         };
       case 2: // Sampat Tara (Wealth, Prosperity)
         return {
-          comments: `${brideNakshatra} nakshatra brings wealth, prosperity, and good fortune to ${groomNakshatra} nakshatra.`,
+          comments: `${groomNakshatra} nakshatra brings wealth, prosperity, and good fortune to ${brideNakshatra} nakshatra.`,
           score: 3,
         };
       case 3: // Vipatt Tara (Danger, Obstacles)
         return {
-          comments: `${brideNakshatra} nakshatra may bring obstacles, dangers, or challenges to ${groomNakshatra} nakshatra.`,
+          comments: `${groomNakshatra} nakshatra may bring obstacles, dangers, or challenges to ${brideNakshatra} nakshatra.`,
           score: 0,
         };
       case 4: // Kshema Tara (Well-being, Prosperity)
         return {
-          comments: `${brideNakshatra} nakshatra ensures well-being, growth, and security for ${groomNakshatra} nakshatra.`,
+          comments: `${groomNakshatra} nakshatra ensures well-being, growth, and security for ${brideNakshatra} nakshatra.`,
           score: 3,
         };
       case 5: // Pratyari Tara (Enemies, Opposition)
         return {
-          comments: `${brideNakshatra} nakshatra may indicate opposition, enemies, or conflict for ${groomNakshatra} nakshatra.`,
+          comments: `${groomNakshatra} nakshatra may indicate opposition, enemies, or conflict for ${brideNakshatra} nakshatra.`,
           score: 0,
         };
       case 6: // Sadhaka Tara (Achievement, Support)
         return {
-          comments: `${brideNakshatra} nakshatra is supportive, helping ${groomNakshatra} nakshatra achieve goals and find success.`,
+          comments: `${groomNakshatra} nakshatra is supportive, helping ${brideNakshatra} nakshatra achieve goals and find success.`,
           score: 3,
         };
       case 7: // Vadha Tara (Destruction, Trouble)
         return {
-          comments: `${brideNakshatra} nakshatra may bring significant distress, destruction, or serious trouble to ${groomNakshatra} nakshatra.`,
+          comments: `${groomNakshatra} nakshatra may bring significant distress, destruction, or serious trouble to ${brideNakshatra} nakshatra.`,
           score: 0,
         };
       case 8: // Mitra Tara (Friendship, Harmony)
         return {
-          comments: `${brideNakshatra} nakshatra fosters friendship, harmony, and mutual understanding with ${groomNakshatra} nakshatra.`,
+          comments: `${groomNakshatra} nakshatra fosters friendship, harmony, and mutual understanding with ${brideNakshatra} nakshatra.`,
           score: 3,
         };
       case 0: // Ati Mitra Tara (Great Friendship)
       case 9: // Ati Mitra Tara (If 9 is explicitly used before % 9, otherwise 0)
         return {
-          comments: `${brideNakshatra} nakshatra forms a profound friendship and deep compatibility with ${groomNakshatra} nakshatra.`,
+          comments: `${groomNakshatra} nakshatra forms brings the highest form of luck to ${brideNakshatra} nakshatra.`,
           score: 3,
         };
       default:
@@ -111,35 +111,39 @@ export class TaraBhakutaCalculatorService {
     let comments = '';
     switch (loveScore) {
       case 0:
-      case 5:
       case 7:
-      case 9:
         comments =
           'The couple will love each other irrespective of any other factors. But it takes time to form love.';
         loveScore = 7;
         break;
+      case 5:
+      case 9:
+        comments =
+          'The couple will love each other but this configuration is generally considered inauspicious, but exceptions exist. Hence it is given 0.';
+        loveScore = 0;
+        break;
       case 2:
       case 12:
         comments =
-          '2/12 Bhakuta dosha: The couple will eventually hate each other.';
+          '2/12 Bhakuta dosha: The couple will eventually hate each other. But exceptions do exist.';
         loveScore = 0;
         break;
       case 6:
       case 8:
         comments =
-          '6/8 Bhakuta dosha: The couple will eventually hate each other.';
+          '6/8 Bhakuta dosha: The couple will eventually hate each other. But there are some exceptions to this rule.';
         loveScore = 0;
         break;
       case 3:
       case 11:
         comments =
-          '3/11 Bhakuta: The couple will like each other for their communication. Ancient texts differentiates between like and love and assigns zero points. Modern astrologers assign 7 points. Feel free to add 7 points to the final score.';
+          '3/11 Bhakuta: The couple will like each other for their communication.';
         loveScore = 0;
         break;
       case 4:
       case 10:
         comments =
-          '4/10 Bhakuta: The couple will like each other for their approach of family building. Ancient texts differentiates between like and love and assigns zero points. Modern astrologers assign 7 points. Feel free to add 7 points to the final score.';
+          '4/10 Bhakuta: The couple will like each other for their approach of family building.';
         loveScore = 0;
         break;
     }
