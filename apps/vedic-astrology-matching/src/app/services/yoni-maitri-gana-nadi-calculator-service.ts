@@ -8,6 +8,30 @@ import { HouseRulers } from '../interfaces/maitri-kuta-interface';
 
 @Injectable()
 export class YoniMaitriGanaNadiCalculatorService {
+  nadiExceptionNakshatras: string[] = [
+    'Rohini',
+    'Ardra',
+    'Magha',
+    'Hasta',
+    'Vishakha',
+    'Shravana',
+    'Uttara Bhadrapada',
+    'Revati',
+  ];
+  nadiMediocoreExceptionNakshatras: string[] = [
+    'Ashwini',
+    'Kritika',
+    'Mrigashira',
+    'Punarvasu',
+    'Pushya',
+    'Purva Phalguni',
+    'Uttara Phalguni',
+    'Chitra',
+    'Anuradha',
+    'Purva Ashadha',
+    'Uttara Ashadha',
+  ];
+
   yoniCalculator(
     groomInfo: NakshatraInfo,
     brideInfo: NakshatraInfo
@@ -16,7 +40,8 @@ export class YoniMaitriGanaNadiCalculatorService {
     return {
       index: 3,
       score: yoniScore,
-      comments: `The passion animal of ${groomInfo.nakshatra} is ${groomInfo.yoni} and that of ${brideInfo.nakshatra} is ${brideInfo.yoni}. The union of these 2 gives us a score of ${yoniScore}`,
+      comments: `The passion animal of ${groomInfo.nakshatra} is ${groomInfo.yoni} and that of 
+      ${brideInfo.nakshatra} is ${brideInfo.yoni}. The union of these 2 gives us a score of ${yoniScore}`,
     };
   }
 
@@ -104,18 +129,39 @@ export class YoniMaitriGanaNadiCalculatorService {
     brideInfo: NakshatraInfo
   ): KutaIterator {
     if (groomInfo.nadi === brideInfo.nadi) {
+      if (groomInfo.nakshatra === brideInfo.nakshatra) {
+        if (this.nadiExceptionNakshatras.includes(groomInfo.nakshatra)) {
+          return {
+            index: 7,
+            score: 7,
+            comments: `Nadi dosha: Exists. But astrologers have observed that this pair is exempt from the rule. 
+            But ensure that the pada of the boy preceeds the pada of the girl if all the padas of a nakshatra is in the same
+            Raashi else do viceversa.`,
+          };
+        }
+        if (
+          this.nadiMediocoreExceptionNakshatras.includes(groomInfo.nakshatra)
+        ) {
+          return {
+            index: 7,
+            score: 4,
+            comments: `Nadi dosha: Exists. But astrologers have observed that this pair is partially exempt from the rule. 
+            But ensure that the pada of the boy preceeds the pada of the girl if all the padas of a nakshatra is in the same
+            Raashi else do viceversa.`,
+          };
+        }
+      }
       return {
         index: 7,
         score: 0,
-        comments:
-          'Nadi dosha: This may cause either the husband or the wife or the child to develop some chronic disease and die after suffering a lot. Please avoid this union if possible.',
+        comments: `Nadi dosha: This may cause either the husband or the wife or the child to develop some genetic disease 
+        although modern medicine can help to mitigate them I am of the opinion prevention is better than cure.`,
       };
     } else {
       return {
         index: 7,
         score: 8,
-        comments:
-          'No nadi dosha. Continue with the union if the other parameters are agreeable.',
+        comments: 'No nadi dosha.',
       };
     }
   }
