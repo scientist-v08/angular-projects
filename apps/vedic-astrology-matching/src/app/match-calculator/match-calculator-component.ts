@@ -218,6 +218,8 @@ export class MatchCalculatorComponent
     const brideNakshatraInfo = this.allNakshatraInfo()[brideNakshatra - 1];
     const groomRaashiInfo = this.allRashiInfo()[groomRaashi - 1];
     const groomNakshatraInfo = this.allNakshatraInfo()[groomNakshatra - 1];
+    const sameRaashiRulerException =
+      brideRaashiInfo.ruler === groomRaashiInfo.ruler;
     this.firstScore = this.varnaVashyaCalculator.varnaCalculator(
       groomRaashiInfo,
       brideRaashiInfo
@@ -244,11 +246,13 @@ export class MatchCalculatorComponent
     );
     this.sixScore = this.yoniMaitriGanaNadiCalculatorService.ganaCalculator(
       groomNakshatraInfo,
-      brideNakshatraInfo
+      brideNakshatraInfo,
+      sameRaashiRulerException
     );
     this.seventhScore = this.taraBhakutaCalculator.bhakutaCalculator(
       groomRaashiInfo,
-      brideRaashiInfo
+      brideRaashiInfo,
+      sameRaashiRulerException
     );
     this.eighthScore = this.yoniMaitriGanaNadiCalculatorService.nadiCalculator(
       groomNakshatraInfo,

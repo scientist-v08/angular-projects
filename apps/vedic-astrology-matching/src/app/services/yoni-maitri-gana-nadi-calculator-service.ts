@@ -58,7 +58,8 @@ export class YoniMaitriGanaNadiCalculatorService {
 
   ganaCalculator(
     groomInfo: NakshatraInfo,
-    brideInfo: NakshatraInfo
+    brideInfo: NakshatraInfo,
+    sameRulerException: boolean
   ): KutaIterator {
     const ganaMapper: string[] = [
       '',
@@ -82,8 +83,15 @@ export class YoniMaitriGanaNadiCalculatorService {
     } else {
       ganaScore = 0;
     }
+    let exceptionComment = '';
+    if (sameRulerException && ganaScore !== 6) {
+      ganaScore = 6;
+      exceptionComment =
+        'Even if there is a Gana mismatch this pair will have exception and have a score of 6.';
+    }
     const additionalComment = `The union of both of these nakshatras give us a score of ${ganaScore}.`;
-    const comments = groomComment + brideComment + additionalComment;
+    const comments =
+      groomComment + brideComment + additionalComment + exceptionComment;
     return {
       index: 5,
       score: ganaScore,

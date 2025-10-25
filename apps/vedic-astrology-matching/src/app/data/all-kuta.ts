@@ -38,7 +38,7 @@ export const allKuta: AllKutasInterface[] = [
   },
   {
     heading: 'Nadi 🧬',
-    desc: 'The Nadi koota measures the pulse of life itself. It warns whether vital energies resonate or repel, and whether progeny and spiritual harmony shall be preserved.',
+    desc: 'The Nadi koota measures the pulse of life. It warns whether progeny shall be preserved.',
     totalScore: 8,
   },
   {

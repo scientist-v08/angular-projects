@@ -42,12 +42,21 @@ export class TaraBhakutaCalculatorService {
   ): { comments: string; score: number } {
     switch (taraNumber) {
       case 1: // Janma Tara (Birth Star)
-        return {
-          comments: isBride
-            ? ''
-            : `${groomNakshatra} nakshatra aligns with ${brideNakshatra}'s birth star, genrally indicating a good luck`,
-          score: 0,
-        };
+        if (groomNakshatra === brideNakshatra) {
+          return {
+            comments: isBride
+              ? ''
+              : `${groomNakshatra} nakshatra aligns with ${brideNakshatra}'s birth star, generally indicating challenges.`,
+            score: 0,
+          };
+        } else {
+          return {
+            comments: isBride
+              ? ''
+              : `${groomNakshatra} nakshatra may bring challenges to ${brideNakshatra} and viceversa.`,
+            score: 0,
+          };
+        }
       case 2: // Sampat Tara (Wealth, Prosperity)
         return {
           comments: `${groomNakshatra} nakshatra brings wealth, prosperity, and good fortune to ${brideNakshatra} nakshatra.`,
@@ -97,7 +106,11 @@ export class TaraBhakutaCalculatorService {
     }
   }
 
-  bhakutaCalculator(groomInfo: RashiInfo, brideInfo: RashiInfo): KutaIterator {
+  bhakutaCalculator(
+    groomInfo: RashiInfo,
+    brideInfo: RashiInfo,
+    sameRulerException: boolean
+  ): KutaIterator {
     let loveScore = groomInfo.position - brideInfo.position;
     if (loveScore < 0) {
       loveScore = loveScore * -1;
@@ -109,6 +122,9 @@ export class TaraBhakutaCalculatorService {
       loveScore = 0;
     }
     let comments = '';
+    const bhakuta2_12_exception =
+      groomInfo.position % 2 === 0 &&
+      groomInfo.position - 1 === brideInfo.position;
     switch (loveScore) {
       case 0:
       case 7:
@@ -119,32 +135,47 @@ export class TaraBhakutaCalculatorService {
       case 5:
       case 9:
         comments =
-          'The couple will love each other but this configuration is generally considered inauspicious, but exceptions exist. Hence it is given 0.';
-        loveScore = 0;
+          'The couple will love each other but this configuration is generally considered inauspicious for having children. Please avoid this union if possible.';
+        loveScore = 7;
         break;
       case 2:
       case 12:
+        if (sameRulerException) {
+          comments = 'The couple will like each other eventually.';
+          loveScore = 2;
+          break;
+        }
+        if (bhakuta2_12_exception) {
+          comments = 'The couple will like each other eventually.';
+          loveScore = 2;
+          break;
+        }
         comments =
-          '2/12 Bhakuta dosha: The couple will eventually hate each other. But exceptions do exist.';
+          '2/12 Bhakuta dosha: The couple will eventually hate each other.';
         loveScore = 0;
         break;
       case 6:
       case 8:
+        if (sameRulerException) {
+          comments = 'The couple will like each other eventually.';
+          loveScore = 2;
+          break;
+        }
         comments =
-          '6/8 Bhakuta dosha: The couple will eventually hate each other. But there are some exceptions to this rule.';
+          '6/8 Bhakuta dosha: The couple will eventually hate each other.';
         loveScore = 0;
         break;
       case 3:
       case 11:
         comments =
           '3/11 Bhakuta: The couple will like each other for their communication.';
-        loveScore = 0;
+        loveScore = 4;
         break;
       case 4:
       case 10:
         comments =
           '4/10 Bhakuta: The couple will like each other for their approach of family building.';
-        loveScore = 0;
+        loveScore = 4;
         break;
     }
     return {
