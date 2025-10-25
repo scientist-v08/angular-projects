@@ -34,6 +34,7 @@ import { nakshatraInfo } from '../data/nakshatra-info';
 import { VarnaVashyaCalculatorService } from '../services/varna-vashya-calculator-service';
 import { TaraBhakutaCalculatorService } from '../services/tara-bhakuta-calculator-service';
 import { YoniMaitriGanaNadiCalculatorService } from '../services/yoni-maitri-gana-nadi-calculator-service';
+import { RajjuDoshaService } from '../services/rajju-dosha-service';
 
 @Component({
   standalone: true,
@@ -48,6 +49,7 @@ import { YoniMaitriGanaNadiCalculatorService } from '../services/yoni-maitri-gan
     VarnaVashyaCalculatorService,
     TaraBhakutaCalculatorService,
     YoniMaitriGanaNadiCalculatorService,
+    RajjuDoshaService,
   ],
 })
 export class MatchCalculatorComponent
@@ -58,6 +60,7 @@ export class MatchCalculatorComponent
   private yoniMaitriGanaNadiCalculatorService = inject(
     YoniMaitriGanaNadiCalculatorService
   );
+  private rajjuDoshaService = inject(RajjuDoshaService);
   private fb = inject(FormBuilder);
   astrologyForm: FormGroup = this.fb.group({
     brideRaashi: ['', Validators.required],
@@ -272,9 +275,14 @@ export class MatchCalculatorComponent
       this.sixScore.score +
       this.seventhScore.score +
       this.eighthScore.score;
+    const rajjuComments = this.rajjuDoshaService.rajjuCalculator(
+      groomNakshatraInfo,
+      brideNakshatraInfo,
+      sameRaashiRulerException
+    );
     const ninthComment = this.nadiDosha()
-      ? 'If possible please avoid this union due to nadi dosha'
-      : 'If the overall score is agreeable, please move forward.';
+      ? `If possible please avoid this union due to nadi dosha. ${rajjuComments}`
+      : `No nadi dosha. ${rajjuComments}`;
     this.ninthScore = {
       index: 8,
       score: totalScore,
