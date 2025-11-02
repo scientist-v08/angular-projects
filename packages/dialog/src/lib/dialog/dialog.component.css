@@ -1,0 +1,131 @@
+/* Custom dialog */
+@keyframes dialog-slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(-50px); /* Start slightly above center */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0); /* End at center */
+  }
+}
+
+/* Animation for the dialog box leaving */
+@keyframes dialog-slide-out {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-30px); /* Move slightly up as it fades */
+  }
+}
+
+.dialog-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  transition: background-color 0.3s ease-out, opacity 0.3s ease-out;
+  opacity: 1;
+
+  &.backdrop-leave {
+    opacity: 0;
+    background-color: rgba(0, 0, 0, 0); /* Transition to clear */
+    transition: opacity 0.3s ease-out, background-color 0.3s ease-out;
+  }
+
+  @starting-style {
+    opacity: 0;
+    background-color: rgba(0, 0, 0, 0);
+  }
+}
+
+.dialog {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  min-width: 400px;
+  max-width: 90vw;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+
+  &.dialog-large {
+    width: 800px;
+  }
+
+  &.dialog-small {
+    width: 300px;
+  }
+
+  &.dialog-enter {
+    animation: dialog-slide-in 0.3s ease-out forwards;
+  }
+
+  /* Dialog Leave Animation */
+  &.dialog-leave {
+    animation: dialog-slide-out 0.3s ease-in forwards;
+  }
+}
+
+.dialog-header {
+  padding: 1rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  h3 {
+    margin: 0;
+    flex: 1;
+  }
+}
+
+.dialog-content {
+  flex: 1;
+  overflow: auto;
+}
+
+.dialog-footer {
+  padding: 1rem 1.5rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.close-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 4px;
+  background-color: transparent;
+  transition: background-color 0.2s ease;
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+  }
+  &::active {
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+}
+
+.close-btn:focus {
+  outline: 2px solid #000;
+  outline-offset: 2px;
+}
+
+.close-btn__icon {
+  width: 25px;
+  height: 25px;
+  fill: currentColor;
+}

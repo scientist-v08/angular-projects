@@ -36,6 +36,8 @@
     "app-31": "npx nx serve app-31-component-variety --port 4231",
     "app-32": "npx nx serve vedic-astrology-matching --host 0.0.0.0 --port 4232",
     "app-33": "npx nx serve app-33-canvas --port 4233",
+    "app-34": "npx nx serve app-34-crackers --host 0.0.0.0 --port 4234",
+    "app-34:build": "npx nx build app-34-crackers --configuration production",
     "app-32:build": "npx nx build vedic-astrology-matching",
     "app-32:ssr": "node dist/apps/vedic-astrology-matching/server/server.mjs"
   },

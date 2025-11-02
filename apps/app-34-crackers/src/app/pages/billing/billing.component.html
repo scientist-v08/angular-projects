@@ -1,0 +1,231 @@
+<form
+  [formGroup]="billingForm"
+  class="container mx-auto px-4 md:px-0 max-w-[100%] md:max-w-[80%]"
+>
+  <div class="flex flex-col gap-4">
+    <div
+      class="w-full mb-6 md:mb-4 border-2 border-indigo-300 dark:border-amber-300 rounded-lg p-8"
+    >
+      <h2
+        class="font-cinzel text-2xl md:text-3xl leading-tight text-indigo-900 dark:text-amber-300 mb-4"
+      >
+        Standard Fireworks Discount 💥
+      </h2>
+      <div class="space-y-4">
+        <label
+          for="standardDiscount"
+          class="block text-sm font-inter text-indigo-900 dark:text-amber-300 mb-2 after:content-['*'] after:text-red-700 dark:after:text-red-400 after:ml-1"
+          >Select Discount</label
+        >
+        <select
+          id="standardDiscount"
+          formControlName="discount"
+          class="w-full dark:bg-transparent dark:text-amber-300 mb-4 p-2 border border-indigo-200 dark:border-amber-200 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400 dark:focus:ring-amber-400"
+        >
+          <option
+            class="dark:bg-transparent dark:text-black"
+            value=""
+            disabled
+            selected
+          >
+            Select a percentage
+          </option>
+          @for (discount of discountDropDownOptions(); track discount.id) {
+          <option
+            class="dark:bg-transparent dark:text-black"
+            [value]="discount.discount"
+          >
+            {{ discount.value }}
+          </option>
+          }
+        </select>
+        @if(billingForm.get('discount')?.touched &&
+        billingForm.get('discount')?.hasError('required')) {
+        <div class="text-red-500 text-sm">Discount is required</div>
+        }
+        <div class="grid__container mt-4">
+          <div class="one">
+            <label
+              for="name"
+              class="block text-sm font-inter text-indigo-900 dark:text-amber-300 mb-2 after:content-['*'] after:text-red-700 dark:after:text-red-400 after:ml-1"
+              >Name</label
+            >
+            <input
+              id="name"
+              formControlName="name"
+              class="w-full dark:bg-transparent dark:text-amber-300 mb-4 p-2 border border-indigo-200 dark:border-amber-200 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400 dark:focus:ring-amber-400"
+              type="text"
+              placeholder="Enter name"
+            />
+            @if (billingForm.get('name')?.touched &&
+            billingForm.get('name')?.hasError('required')) {
+            <div class="text-red-500 text-sm">Name is required</div>
+            }
+          </div>
+          <div class="two">
+            <label
+              for="number"
+              class="block text-sm font-inter text-indigo-900 dark:text-amber-300 mb-2 after:content-['*'] after:text-red-700 dark:after:text-red-400 after:ml-1"
+              >Mobile Number</label
+            >
+            <input
+              id="number"
+              formControlName="number"
+              class="w-full dark:bg-transparent dark:text-amber-300 mb-4 p-2 border border-indigo-200 dark:border-amber-200 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400 dark:focus:ring-amber-400"
+              type="number"
+              placeholder="Enter number"
+            />
+            @if (billingForm.get('number')?.touched &&
+            billingForm.get('number')?.hasError('pattern')) {
+            <div class="text-red-500 text-sm">Mobile Number is required</div>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="w-full mb-6 md:mb-0 border-2 border-indigo-300 dark:border-amber-300 rounded-lg p-8"
+    >
+      <h2
+        class="font-cinzel text-2xl md:text-3xl leading-tight text-indigo-900 dark:text-amber-300 mb-4"
+      >
+        Item Details 🛍️
+      </h2>
+      <div class="space-y-4">
+        <div class="grid__container">
+          <div class="one">
+            <label
+              for="company"
+              class="block text-sm font-inter text-indigo-900 dark:text-amber-300 mb-2 after:content-['*'] after:text-red-700 dark:after:text-red-400 after:ml-1"
+              >Select Company</label
+            >
+            <select
+              id="company"
+              formControlName="company"
+              class="w-full dark:bg-transparent dark:text-amber-300 mb-4 p-2 border border-indigo-200 dark:border-amber-200 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400 dark:focus:ring-amber-400"
+            >
+              <option
+                class="dark:bg-transparent dark:text-black"
+                value=""
+                disabled
+                selected
+              >
+                Select Company
+              </option>
+              @for (company of companyDropdown(); track company.id) {
+              <option
+                class="dark:bg-transparent dark:text-black"
+                [value]="company.item"
+              >
+                {{ company.item }}
+              </option>
+              }
+            </select>
+            @if (billingForm.get('company')?.touched &&
+            billingForm.get('company')?.hasError('required')) {
+            <div class="text-red-500 text-sm">Company is required</div>
+            }
+          </div>
+          <div class="two">
+            <label
+              for="category"
+              class="block text-sm font-inter text-indigo-900 dark:text-amber-300 mb-2 after:content-['*'] after:text-red-700 dark:after:text-red-400 after:ml-1"
+              >Select Category</label
+            >
+            <select
+              id="category"
+              formControlName="category"
+              class="w-full dark:bg-transparent dark:text-amber-300 mb-4 p-2 border border-indigo-200 dark:border-amber-200 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400 dark:focus:ring-amber-400"
+            >
+              <option
+                class="dark:bg-transparent dark:text-black"
+                value=""
+                disabled
+                selected
+              >
+                Select Category
+              </option>
+              @for (category of categoryDropdown(); track category.id) {
+              <option
+                class="dark:bg-transparent dark:text-black"
+                [value]="category.item"
+              >
+                {{ category.item }}
+              </option>
+              }
+            </select>
+            @if (billingForm.get('category')?.touched &&
+            billingForm.get('category')?.hasError('required')) {
+            <div class="text-red-500 text-sm">Category is required</div>
+            }
+          </div>
+        </div>
+        <div class="grid__container mt-4">
+          <div class="one">
+            <label
+              for="mrp"
+              class="block text-sm font-inter text-indigo-900 dark:text-amber-300 mb-2 after:content-['*'] after:text-red-700 dark:after:text-red-400 after:ml-1"
+              >MRP/Net Rate</label
+            >
+            <input
+              id="mrp"
+              formControlName="MRP"
+              class="w-full dark:bg-transparent dark:text-amber-300 mb-4 p-2 border border-indigo-200 dark:border-amber-200 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400 dark:focus:ring-amber-400"
+              type="number"
+              placeholder="Enter MRP/Net Rate"
+            />
+            @if (billingForm.get('MRP')?.touched &&
+            billingForm.get('MRP')?.hasError('required')) {
+            <div class="text-red-500 text-sm">MRP/Net Rate is required</div>
+            }
+          </div>
+          <div class="two">
+            <label
+              for="quantity"
+              class="block text-sm font-inter text-indigo-900 dark:text-amber-300 mb-2 after:content-['*'] after:text-red-700 dark:after:text-red-400 after:ml-1"
+              >Quantity</label
+            >
+            <input
+              id="quantity"
+              formControlName="quantity"
+              class="w-full dark:bg-transparent dark:text-amber-300 mb-4 p-2 border border-indigo-200 dark:border-amber-200 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400 dark:focus:ring-amber-400"
+              type="number"
+              placeholder="Enter Quantity"
+            />
+            @if (billingForm.get('quantity')?.touched &&
+            billingForm.get('quantity')?.hasError('required')) {
+            <div class="text-red-500 text-sm">Quantity is required</div>
+            }
+          </div>
+        </div>
+        <div class="w-full flex items-center justify-center mt-2">
+          <div
+            class="flex justify-between gap items-center flex-col md:flex-row"
+          >
+            <app-button (buttonClicked)="addItem()">Add item +</app-button>
+            <div>
+              <app-button (buttonClicked)="calculateTotal()"
+                >Calculate Total</app-button
+              >
+              @if (selectAtLeastOneitem()) {
+              <div class="text-red-500 text-sm">Quantity is required</div>
+              }
+            </div>
+            <app-button (buttonClicked)="newBill()">New Bill</app-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+@if (showItems()) { @for (item of items(); track item.slNo) {
+<app-items
+  [item]="item"
+  (toEdit)="onEdited($event)"
+  (toDelete)="deleteItem($event)"
+/>
+} } @if (showTotal()) {
+<div class="" #scroll>
+  <app-grand-total [grandTotal]="totalCost()" (generateBill)="generateBill()" />
+</div>
+}
