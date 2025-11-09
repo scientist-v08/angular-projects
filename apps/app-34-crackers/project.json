@@ -23,19 +23,22 @@
         ],
         "styles": ["apps/app-34-crackers/src/styles.css"],
         "scripts": [],
-        "server": "apps/app-34-crackers/src/main.server.ts",
-        "prerender": true,
-        "ssr": {
-          "entry": "apps/app-34-crackers/server.ts"
-        }
+        "prerender": false,
+        "ssr": false
       },
       "configurations": {
         "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/app-34-crackers/src/environments/environment.development.ts",
+              "with": "apps/app-34-crackers/src/environments/environment.ts"
+            }
+          ],
           "budgets": [
             {
               "type": "initial",
-              "maximumWarning": "500kb",
-              "maximumError": "1mb"
+              "maximumWarning": "1.5mb",
+              "maximumError": "1.5mb"
             },
             {
               "type": "anyComponentStyle",

@@ -92,7 +92,7 @@ export default class BillingComponent implements AfterViewChecked {
   ]);
   companyDropdown = signal<DropdownInterface[]>([
     { id: 1, value: 'st', item: 'Standard' },
-    { id: 2, value: 'ot', item: 'Other' },
+    { id: 2, value: 'ot', item: 'Other/Gift Box' },
   ]);
   categoryDropdown = signal<DropdownInterface[]>([
     { id: 1, value: 'sp', item: 'Sparklers' },
@@ -174,7 +174,10 @@ export default class BillingComponent implements AfterViewChecked {
     if (this.items().length > 0) {
       this.selectAtLeastOneitem.set(false);
       this.totalCost.set(
-        this.items().reduce((sum, item) => sum + (item.subTotal || 0), 0)
+        this.items().reduce(
+          (sum, item) => sum + Math.floor(item.subTotal || 0),
+          0
+        )
       );
       if (!this.showTotal()) {
         this.showTotal.set(true);

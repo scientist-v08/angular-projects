@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderRouterInterface, SharedUiComponent } from '@projects/shared-ui';
+import { LoginService } from './services/login.service';
 
 @Component({
   standalone: true,
@@ -9,22 +10,7 @@ import { HeaderRouterInterface, SharedUiComponent } from '@projects/shared-ui';
   templateUrl: './app.component.html',
 })
 export class AppComponent {
+  loginService = inject(LoginService);
   title = 'Vinayaka Crackers';
-  routes: HeaderRouterInterface[] = [
-    {
-      id: 1,
-      route: '/',
-      heading: 'Billing',
-    },
-    {
-      id: 2,
-      route: 'expenses',
-      heading: 'Expenses',
-    },
-    {
-      id: 3,
-      route: 'inventory',
-      heading: 'Inventory',
-    },
-  ];
+  routes = this.loginService.allRoutes;
 }
