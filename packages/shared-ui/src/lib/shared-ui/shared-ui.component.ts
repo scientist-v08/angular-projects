@@ -25,7 +25,7 @@ import { HeaderRouterInterface } from '../interfaces/header-router.interface';
         <div class="section__items">
           @for (route of allRoutes(); track route.id) {
           <h2 class="p-2 flex items-center justify-center text-xl">
-            @if (route.heading === 'LOGOUT') {
+            @if (route.heading === 'Logout') {
             <p style="cursor: pointer;" (mousedown)="logoutClicked.emit()">
               {{ route.heading }}
             </p>

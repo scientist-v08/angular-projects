@@ -8,6 +8,7 @@ import {
 import { Subscription } from 'rxjs';
 import { HeaderRouterInterface } from '@projects/shared-ui';
 import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   standalone: true,
@@ -25,6 +26,7 @@ import { Router } from '@angular/router';
         <div class="width__input">
           <input
             id="username"
+            name="username"
             formControlName="username"
             type="text"
             placeholder="User"
@@ -40,6 +42,7 @@ import { Router } from '@angular/router';
         <div class="width__input div__password__container mt-6">
           <input
             id="password"
+            name="password"
             formControlName="password"
             [type]="passwordType()"
             placeholder="Password"
@@ -82,17 +85,21 @@ import { Router } from '@angular/router';
             </svg>
             }
           </button>
-          @if(loginForm.get('password')?.touched &&
-          loginForm.get('password')?.hasError('required')) {
-          <div class="text-red-500 text-sm">Password is required</div>
-          } @if(loginForm.get('password')?.touched &&
-          loginForm.get('password')?.hasError('pattern')) {
-          <div class="text-red-500 text-sm">
-            Password will have 1 capital letter, 1 small letter, 1 number and 1
-            special character and will be at least 8 characters long
-          </div>
-          }
         </div>
+        @if(loginForm.get('password')?.touched &&
+        loginForm.get('password')?.hasError('required')) {
+        <div class="text-red-500 text-sm">Password is required</div>
+        } @if(loginForm.get('password')?.touched &&
+        loginForm.get('password')?.hasError('pattern')) {
+        <div class="text-red-500 text-sm">
+          Password will have 1 capital letter, 1 small letter, 1 number and 1
+          special character and will be at least 8 characters long
+        </div>
+        } @if(incorrectPassword()) {
+        <div class="text-red-500 text-sm">
+          Incorrect password. Login failed.
+        </div>
+        }
 
         <button
           type="submit"
@@ -159,6 +166,7 @@ export default class LoginComponent implements OnDestroy {
     ]),
   });
   subscription = new Subscription();
+  incorrectPassword = signal<boolean>(false);
 
   togglePasswordVisibility() {
     this.passwordType.update((type) =>
@@ -172,9 +180,8 @@ export default class LoginComponent implements OnDestroy {
         Email: this.loginForm.get('username')?.getRawValue(),
         Password: this.loginForm.get('password')?.getRawValue(),
       };
-      this.subscription = this.#loginService
-        .login(reqBody)
-        .subscribe((res: LoginInterface) => {
+      this.subscription = this.#loginService.login(reqBody).subscribe({
+        next: (res: LoginInterface) => {
           localStorage.setItem('token', res.access_token);
           if (res.routes[0].Role === 'ROLE_ADMIN') {
             localStorage.setItem('admin', 'true');
@@ -188,14 +195,15 @@ export default class LoginComponent implements OnDestroy {
               heading: Heading,
             })
           );
-          headerRoutes.push({
-            id: headerRoutes.length + 1,
-            route: '/',
-            heading: 'LOGOUT',
-          });
+          localStorage.setItem('routes', JSON.stringify(headerRoutes));
           this.#router.navigateByUrl(headerRoutes[0].route);
           this.#loginService.allRoutes.set(headerRoutes);
-        });
+        },
+        error: (err: HttpErrorResponse) => {
+          this.incorrectPassword.set(true);
+          console.log(err.message);
+        },
+      });
     } else {
       this.loginForm.markAllAsTouched();
     }
