@@ -226,6 +226,19 @@
 />
 } } @if (showTotal()) {
 <div class="" #scroll>
-  <app-grand-total [grandTotal]="totalCost()" (generateBill)="generateBill()" />
+  <app-grand-total
+    [grandTotal]="totalCost()"
+    (generateBill)="generateBill()"
+    (previewBill)="previewBill()"
+    (comparePrices)="comparePrices()"
+    (newBill)="newBill()"
+  />
+</div>
+} @if(showComparisons()) {
+<div #comparison>
+  <app-bill-comparison
+    [allBillComparisons]="billComparison()"
+    (finalize)="finalizedBill($event)"
+  />
 </div>
 }
