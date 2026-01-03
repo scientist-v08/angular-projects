@@ -107,7 +107,7 @@ import { HttpErrorResponse } from '@angular/common/http';
         <div>
           <app-button (buttonClicked)="submitForm()">Save</app-button>
           @if (validForm()) {
-          <small class="text-red"
+          <small class="text-red-500"
             >Invalid entries. All fields are required.</small
           >
           }

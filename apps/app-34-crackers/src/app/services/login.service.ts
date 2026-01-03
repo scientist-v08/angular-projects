@@ -17,6 +17,7 @@ export class LoginService {
   #router = inject(Router);
   url = environment.baseUrl;
   allRoutes = signal<HeaderRouterInterface[]>([]);
+  isLoggingOut = signal<boolean>(false);
 
   public login(req: LoginRequestBody): Observable<LoginInterface> {
     const loginUrl = this.url + 'login/user';

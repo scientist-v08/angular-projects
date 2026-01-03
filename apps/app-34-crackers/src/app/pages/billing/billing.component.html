@@ -43,41 +43,43 @@
         billingForm.get('discount')?.hasError('required')) {
         <div class="text-red-500 text-sm">Discount is required</div>
         }
-        <div class="grid__container mt-4">
-          <div class="one">
+        <div class="grid grid-cols-2 mt-4 gap-4">
+          <div>
             <label
               for="name"
-              class="block text-sm font-inter text-indigo-900 dark:text-amber-300 mb-2 after:content-['*'] after:text-red-700 dark:after:text-red-400 after:ml-1"
-              >Name</label
+              class="block text-sm font-inter text-indigo-900 dark:text-amber-300 mb-2"
+              >Customer Name</label
             >
             <input
               id="name"
               formControlName="name"
-              class="w-full dark:bg-transparent dark:text-amber-300 mb-4 p-2 border border-indigo-200 dark:border-amber-200 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400 dark:focus:ring-amber-400"
+              class="w-full placeholder:text-indigo-900 dark:placeholder:text-amber-300 dark:bg-transparent dark:text-amber-300 mb-4 p-2 border border-indigo-200 dark:border-amber-200 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400 dark:focus:ring-amber-400"
               type="text"
-              placeholder="Enter name"
+              placeholder="Enter customer name"
             />
             @if (billingForm.get('name')?.touched &&
             billingForm.get('name')?.hasError('required')) {
-            <div class="text-red-500 text-sm">Name is required</div>
+            <div class="text-red-500 text-sm">Customer Name is required</div>
             }
           </div>
-          <div class="two">
+          <div>
             <label
               for="number"
-              class="block text-sm font-inter text-indigo-900 dark:text-amber-300 mb-2 after:content-['*'] after:text-red-700 dark:after:text-red-400 after:ml-1"
-              >Mobile Number</label
+              class="block text-sm font-inter text-indigo-900 dark:text-amber-300 mb-2"
+              >Customer Mobile Number</label
             >
             <input
               id="number"
               formControlName="number"
-              class="w-full dark:bg-transparent dark:text-amber-300 mb-4 p-2 border border-indigo-200 dark:border-amber-200 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400 dark:focus:ring-amber-400"
+              class="w-full placeholder:text-indigo-900 dark:placeholder:text-amber-300 dark:bg-transparent dark:text-amber-300 mb-4 p-2 border border-indigo-200 dark:border-amber-200 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400 dark:focus:ring-amber-400"
               type="number"
-              placeholder="Enter number"
+              placeholder="Enter customer number"
             />
             @if (billingForm.get('number')?.touched &&
             billingForm.get('number')?.hasError('pattern')) {
-            <div class="text-red-500 text-sm">Mobile Number is required</div>
+            <div class="text-red-500 text-sm">
+              Customer Mobile Number is required
+            </div>
             }
           </div>
         </div>
@@ -92,8 +94,8 @@
         Item Details 🛍️
       </h2>
       <div class="space-y-4">
-        <div class="grid__container">
-          <div class="one">
+        <div class="grid grid-cols-2 gap-4">
+          <div>
             <label
               for="company"
               class="block text-sm font-inter text-indigo-900 dark:text-amber-300 mb-2 after:content-['*'] after:text-red-700 dark:after:text-red-400 after:ml-1"
@@ -126,7 +128,7 @@
             <div class="text-red-500 text-sm">Company is required</div>
             }
           </div>
-          <div class="two">
+          <div>
             <label
               for="category"
               class="block text-sm font-inter text-indigo-900 dark:text-amber-300 mb-2 after:content-['*'] after:text-red-700 dark:after:text-red-400 after:ml-1"
@@ -160,8 +162,8 @@
             }
           </div>
         </div>
-        <div class="grid__container mt-4">
-          <div class="one">
+        <div class="grid grid-cols-2 mt-4 gap-4">
+          <div>
             <label
               for="mrp"
               class="block text-sm font-inter text-indigo-900 dark:text-amber-300 mb-2 after:content-['*'] after:text-red-700 dark:after:text-red-400 after:ml-1"
@@ -170,7 +172,7 @@
             <input
               id="mrp"
               formControlName="MRP"
-              class="w-full dark:bg-transparent dark:text-amber-300 mb-4 p-2 border border-indigo-200 dark:border-amber-200 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400 dark:focus:ring-amber-400"
+              class="w-full placeholder:text-indigo-900 dark:placeholder:text-amber-300 dark:bg-transparent dark:text-amber-300 mb-4 p-2 border border-indigo-200 dark:border-amber-200 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400 dark:focus:ring-amber-400"
               type="number"
               placeholder="Enter MRP/Net Rate"
             />
@@ -179,7 +181,7 @@
             <div class="text-red-500 text-sm">MRP/Net Rate is required</div>
             }
           </div>
-          <div class="two">
+          <div>
             <label
               for="quantity"
               class="block text-sm font-inter text-indigo-900 dark:text-amber-300 mb-2 after:content-['*'] after:text-red-700 dark:after:text-red-400 after:ml-1"
@@ -188,7 +190,7 @@
             <input
               id="quantity"
               formControlName="quantity"
-              class="w-full dark:bg-transparent dark:text-amber-300 mb-4 p-2 border border-indigo-200 dark:border-amber-200 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400 dark:focus:ring-amber-400"
+              class="w-full placeholder:text-indigo-900 dark:placeholder:text-amber-300 dark:bg-transparent dark:text-amber-300 mb-4 p-2 border border-indigo-200 dark:border-amber-200 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400 dark:focus:ring-amber-400"
               type="number"
               placeholder="Enter Quantity"
             />
@@ -200,7 +202,7 @@
         </div>
         <div class="w-full flex items-center justify-center mt-2">
           <div
-            class="flex justify-between gap items-center flex-col md:flex-row"
+            class="flex justify-between gap-4 items-center flex-col md:flex-row"
           >
             <app-button (buttonClicked)="addItem()">Add item +</app-button>
             <div>
@@ -242,3 +244,12 @@
   />
 </div>
 }
+<p-dialog
+  header=""
+  [modal]="true"
+  [(visible)]="visible"
+  [style]="{ width: '25rem' }"
+>
+  <app-spinner class="flex items-center justify-center" />
+</p-dialog>
+<p-toast position="bottom-right" key="br" />

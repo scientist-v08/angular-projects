@@ -101,4 +101,48 @@ export class BillingService {
       return item;
     });
   }
+
+  public addNewItemToBill(
+    slNo: number,
+    company: string | null,
+    category: string | null,
+    MRP: number | null,
+    quantity: number | null,
+    discount: number,
+    obtainedDiscount: number
+  ): ItemsInterface {
+    return {
+      slNo: slNo,
+      item: `${company}: ${category}`,
+      mrpOrNet: MRP ?? 0,
+      quantity: quantity ?? 0,
+      discount: company === 'Standard' ? `${discount}%` : 'NA',
+      subTotal: this.subTotalCalculation(
+        company,
+        obtainedDiscount,
+        quantity,
+        MRP
+      ),
+    };
+  }
+
+  public subTotalCalculation(
+    company: string | null,
+    discount: number,
+    quantity: number | null,
+    mrpOrNet: number | null
+  ): number {
+    if (company) {
+      if (company === 'Standard') {
+        const subtotal = Math.floor(
+          (mrpOrNet as number) * (quantity as number) * discount
+        );
+        return subtotal ?? 0;
+      } else {
+        const subtotal = (mrpOrNet as number) * (quantity as number);
+        return subtotal ?? 0;
+      }
+    }
+    return 0;
+  }
 }

@@ -198,6 +198,7 @@ export default class LoginComponent implements OnDestroy {
           localStorage.setItem('routes', JSON.stringify(headerRoutes));
           this.#router.navigateByUrl(headerRoutes[0].route);
           this.#loginService.allRoutes.set(headerRoutes);
+          this.#loginService.isLoggingOut.set(false);
         },
         error: (err: HttpErrorResponse) => {
           this.incorrectPassword.set(true);

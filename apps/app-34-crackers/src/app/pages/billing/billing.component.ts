@@ -19,9 +19,18 @@ import {
   BillDetailsInterface,
   BillResponseInterface,
 } from '../../interfaces/billDetails.interface';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject, takeUntil, tap } from 'rxjs';
 import { BillComparisonInterface } from '../../interfaces/billComparison.interface';
 import { BillComparisonComponent } from '../../components/bill-comparison.component';
+import { Dialog } from 'primeng/dialog';
+import { SpinnerComponent } from '../../components/spinner.component';
+import { Toast } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+import {
+  categoryDropdown,
+  companyDropdown,
+  discountDropDownOptions,
+} from '../../constants/billing.constants';
 
 @Component({
   selector: 'app-billing',
@@ -32,88 +41,32 @@ import { BillComparisonComponent } from '../../components/bill-comparison.compon
     ItemsClass,
     GrandTotalComponent,
     BillComparisonComponent,
+    Dialog,
+    SpinnerComponent,
+    Toast,
   ],
   templateUrl: './billing.component.html',
-  styles: [
-    `
-      .grid__container {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-template-areas: 'one two';
-        gap: 1rem;
-        width: 100%;
-        .one {
-          grid-area: one;
-        }
-        .two {
-          grid-area: two;
-        }
-      }
-
-      .gap {
-        gap: 1rem;
-      }
-
-      input::placeholder {
-        color: #312e81;
-      }
-
-      .text-red-500 {
-        color: red;
-      }
-
-      @media (max-width: 768px) {
-        .grid__container {
-          grid-template-columns: 1fr;
-          grid-template-areas:
-            'one'
-            'two';
-        }
-      }
-
-      @media (prefers-color-scheme: dark) {
-        input::placeholder {
-          color: #fcd34d; /* Tailwind's amber-300 */
-        }
-      }
-    `,
-  ],
+  providers: [MessageService],
 })
 export default class BillingComponent implements AfterViewChecked, OnDestroy {
   #fb = inject(FormBuilder);
   #billingService = inject(BillingService);
-
+  #messageService = inject(MessageService);
   billingForm = this.#fb.group({
     discount: this.#fb.control('0.25', [Validators.required]),
     company: this.#fb.control('', [Validators.required]),
     category: this.#fb.control('', [Validators.required]),
-    name: this.#fb.control('Venkataramaiah P', [Validators.required]),
-    number: this.#fb.control('9945839954', [
-      Validators.pattern(/^[6-9]\d{9}$/),
-    ]),
+    name: this.#fb.control(''),
+    number: this.#fb.control(''),
     MRP: this.#fb.control(0, [Validators.required]),
     quantity: this.#fb.control(1, [Validators.required]),
   });
-  discountDropDownOptions = signal<DiscountDropdownInterface[]>([
-    { id: 1, value: '70%', discount: 0.3 },
-    { id: 2, value: '75%', discount: 0.25 },
-    { id: 3, value: '77%', discount: 0.23 },
-    { id: 4, value: '78%', discount: 0.22 },
-    { id: 5, value: '80%', discount: 0.2 },
-  ]);
-  companyDropdown = signal<DropdownInterface[]>([
-    { id: 1, value: 'st', item: 'Standard' },
-    { id: 2, value: 'ot', item: 'Other/Gift Box' },
-  ]);
-  categoryDropdown = signal<DropdownInterface[]>([
-    { id: 1, value: 'sp', item: 'Sparklers' },
-    { id: 2, value: 'fp', item: 'Flower pots' },
-    { id: 3, value: 'bc', item: 'Chakra' },
-    { id: 4, value: 'dm', item: 'Dum Dum' },
-    { id: 5, value: 'fc', item: 'Rockets/Sky-shots' },
-    { id: 6, value: 'ss', item: 'Sky shots' },
-    { id: 7, value: 'gf', item: 'Gift box' },
-  ]);
+  visible = false;
+  discountDropDownOptions = signal<DiscountDropdownInterface[]>(
+    discountDropDownOptions
+  );
+  companyDropdown = signal<DropdownInterface[]>(companyDropdown);
+  categoryDropdown = signal<DropdownInterface[]>(categoryDropdown);
   showItems = signal<boolean>(false);
   slNo = signal<number>(0);
   items = signal<ItemsInterface[]>([]);
@@ -152,22 +105,15 @@ export default class BillingComponent implements AfterViewChecked, OnDestroy {
       const obtainedDiscount =
         Number(this.billingForm.controls.discount.getRawValue()) ?? 0;
       const actualDiscount = 100 - obtainedDiscount * 100;
-      const newItem: ItemsInterface = {
-        slNo: this.slNo(),
-        item: `${this.billingForm.controls.company.getRawValue()}: ${this.billingForm.controls.category.getRawValue()}`,
-        mrpOrNet: this.billingForm.controls.MRP.getRawValue() ?? 0,
-        quantity: this.billingForm.controls.quantity.getRawValue() ?? 0,
-        discount:
-          this.billingForm.controls.company.getRawValue() === 'Standard'
-            ? `${actualDiscount}%`
-            : 'NA',
-        subTotal: this.subTotalCalculation(
-          this.billingForm.controls.company.getRawValue(),
-          obtainedDiscount,
-          this.billingForm.controls.quantity.getRawValue(),
-          this.billingForm.controls.MRP.getRawValue()
-        ),
-      };
+      const newItem: ItemsInterface = this.#billingService.addNewItemToBill(
+        this.slNo(),
+        this.billingForm.controls.company.getRawValue(),
+        this.billingForm.controls.category.getRawValue(),
+        this.billingForm.controls.MRP.getRawValue(),
+        this.billingForm.controls.quantity.getRawValue(),
+        actualDiscount,
+        obtainedDiscount
+      );
       this.items.update((currentItems) => [...currentItems, newItem]);
       if (!this.showItems()) {
         this.showItems.set(true);
@@ -175,26 +121,6 @@ export default class BillingComponent implements AfterViewChecked, OnDestroy {
     } else {
       this.billingForm.markAllAsTouched();
     }
-  }
-
-  private subTotalCalculation(
-    company: string | null,
-    discount: number,
-    quantity: number | null,
-    mrpOrNet: number | null
-  ): number {
-    if (company) {
-      if (company === 'Standard') {
-        const subtotal = Math.floor(
-          (mrpOrNet as number) * (quantity as number) * discount
-        );
-        return subtotal ?? 0;
-      } else {
-        const subtotal = (mrpOrNet as number) * (quantity as number);
-        return subtotal ?? 0;
-      }
-    }
-    return 0;
   }
 
   calculateTotal(): void {
@@ -214,7 +140,7 @@ export default class BillingComponent implements AfterViewChecked, OnDestroy {
 
   newBill(): void {
     this.billingForm.setValue({
-      discount: '',
+      discount: '0.25',
       company: '',
       category: '',
       name: '',
@@ -238,7 +164,7 @@ export default class BillingComponent implements AfterViewChecked, OnDestroy {
   }
 
   onEdited(updatedItem: ItemsInterface) {
-    updatedItem.subTotal = this.subTotalCalculation(
+    updatedItem.subTotal = this.#billingService.subTotalCalculation(
       updatedItem.item.startsWith('Standard:') ? 'Standard' : updatedItem.item,
       this.percentToDecimal(updatedItem.discount),
       updatedItem.quantity,
@@ -270,17 +196,34 @@ export default class BillingComponent implements AfterViewChecked, OnDestroy {
   }
 
   generateBill(): void {
+    const customerName = this.billingForm.controls.name.getRawValue() ?? '';
+    const mobileNumber = this.billingForm.controls.number.getRawValue() ?? '';
+    if (customerName.length < 1 || mobileNumber.length !== 10) {
+      this.#messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail:
+          'The customer name and the customer mobile number is to be entered without any errors',
+        key: 'br',
+        life: 3000,
+      });
+      return;
+    }
     const requestBody: BillDetailsInterface = {
-      user: this.billingForm.controls.name.getRawValue() ?? '',
-      mobile: this.billingForm.controls.number.getRawValue() ?? '',
+      user: customerName,
+      mobile: mobileNumber,
       grandTotal: this.totalCost(),
       billItems: this.items(),
     };
     this.#billingService
       .generateBill(requestBody)
-      .pipe(takeUntil(this.unsubscribe$))
+      .pipe(
+        tap(() => (this.visible = true)),
+        takeUntil(this.unsubscribe$)
+      )
       .subscribe({
         next: (res: BillResponseInterface) => {
+          this.visible = false;
           const blobUrl = window.URL.createObjectURL(res.file);
           const a = document.createElement('a');
           a.href = blobUrl;
@@ -291,6 +234,15 @@ export default class BillingComponent implements AfterViewChecked, OnDestroy {
             'https://wa.me/91' +
             (this.billingForm.controls.number.getRawValue() ?? '');
           window.open(whatsappTab, '_blank');
+        },
+        error: () => {
+          this.#messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Unable to process the request',
+            key: 'br',
+            life: 3000,
+          });
         },
       });
   }
@@ -304,9 +256,13 @@ export default class BillingComponent implements AfterViewChecked, OnDestroy {
     };
     this.#billingService
       .generatePreviewBill(requestBody)
-      .pipe(takeUntil(this.unsubscribe$))
+      .pipe(
+        tap(() => (this.visible = true)),
+        takeUntil(this.unsubscribe$)
+      )
       .subscribe({
         next: (res: BillResponseInterface) => {
+          this.visible = false;
           const blobUrl = window.URL.createObjectURL(res.file);
           const a = document.createElement('a');
           a.href = blobUrl;
@@ -317,6 +273,15 @@ export default class BillingComponent implements AfterViewChecked, OnDestroy {
             'https://wa.me/91' +
             (this.billingForm.controls.number.getRawValue() ?? '');
           window.open(whatsappTab, '_blank');
+        },
+        error: () => {
+          this.#messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Unable to process the request',
+            key: 'br',
+            life: 3000,
+          });
         },
       });
   }
