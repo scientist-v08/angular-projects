@@ -83,34 +83,37 @@ import { SpinnerComponent } from '../../../components/spinner.component';
       class="mb-2 border-2 border-indigo-300 dark:border-amber-300 rounded-lg"
     >
       <p-card header="{{ item.BrandOrCompany }}: {{ item.Item }}">
-        <div class="m-0 grid-container">
+        <div class="m-0 grid grid-cols-1 md:grid-cols-3">
           <div
-            class="one center-content border-2 border-indigo-300 dark:border-amber-300 rounded-lg p-4 m-1"
+            class="flex items-center justify-start border-2 border-indigo-300 dark:border-amber-300 rounded-lg p-4 m-1"
           >
             Number of boxes per carton: {{ item.NumOfBoxes }}
           </div>
           <div
-            class="two center-content border-2 border-indigo-300 dark:border-amber-300 rounded-lg p-4 m-1"
+            class="flex items-center justify-start border-2 border-indigo-300 dark:border-amber-300 rounded-lg p-4 m-1"
           >
             Number of Cartons: {{ item.NumOfCartons }}
           </div>
           <div
-            class="three center-content border-2 border-indigo-300 dark:border-amber-300 rounded-lg p-4 m-1"
+            class="flex items-center justify-start border-2 border-indigo-300 dark:border-amber-300 rounded-lg p-4 m-1"
           >
             Price per carton: {{ item.PricePerCarton }}
           </div>
           <div
-            class="four center-content border-2 border-indigo-300 dark:border-amber-300 rounded-lg p-4 m-1"
+            class="flex items-center justify-start border-2 border-indigo-300 dark:border-amber-300 rounded-lg p-4 m-1"
           >
             Subtotal: {{ item.SubTotal }}
           </div>
-          <div class="five items-center flex justify-center">
-            Action:&nbsp;<app-complete
+          <div class="items-center flex justify-center">
+            @if(inventoryState() !== 'Unpacked') {
+            <app-complete
               [itemToBeCompleted]="item"
               (toaster)="changeState($event)"
+              (toasterForPartial)="partialSuccessMessageService($event)"
             />
+            }
           </div>
-          <div class="hidden six md:block"></div>
+          <div class="hidden md:block"></div>
         </div>
       </p-card>
     </div>
@@ -119,51 +122,6 @@ import { SpinnerComponent } from '../../../components/spinner.component';
     }
     <p-toast position="bottom-right" key="br" />
   `,
-  styles: [
-    `
-      .grid-container {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        grid-template-areas:
-          'one two three'
-          'four five six';
-      }
-      .center-content {
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-      }
-      .one {
-        grid-area: one;
-      }
-      .two {
-        grid-area: two;
-      }
-      .three {
-        grid-area: three;
-      }
-      .four {
-        grid-area: four;
-      }
-      .five {
-        grid-area: five;
-      }
-      .six {
-        grid-area: six;
-      }
-      @media (max-width: 768px) {
-        .grid-container {
-          grid-template-columns: 1fr;
-          grid-template-areas:
-            'one'
-            'two'
-            'three'
-            'four'
-            'five';
-        }
-      }
-    `,
-  ],
   providers: [MessageService],
 })
 export class ItemsComponent implements OnInit, OnDestroy {
@@ -185,6 +143,7 @@ export class ItemsComponent implements OnInit, OnDestroy {
   searchBoxInvalidClass = signal<string>('');
   showAddItem = signal<boolean>(false);
   state = signal<string>('');
+  inventoryState = this.#inventoryService.state;
 
   public ngOnInit(): void {
     this.getItems();
@@ -300,6 +259,35 @@ export class ItemsComponent implements OnInit, OnDestroy {
     });
     if (event.type === 'success') {
       this.refreshItems();
+    }
+  }
+
+  partialSuccessMessageService(event: {
+    type: string;
+    message: string;
+    id: number;
+    numOfCartons: number;
+  }): void {
+    this.#messageService.add({
+      severity: event.type,
+      summary: event.type,
+      detail: event.message,
+      key: 'br',
+      life: 3000,
+    });
+    if (event.type === 'success') {
+      this.allItems.update((item) => {
+        const updatedItems = item.map((itemToUpdate) => {
+          if (itemToUpdate.ID === event.id) {
+            return {
+              ...itemToUpdate,
+              NumOfCartons: itemToUpdate.NumOfCartons - event.numOfCartons,
+            };
+          }
+          return itemToUpdate;
+        });
+        return updatedItems;
+      });
     }
   }
 
