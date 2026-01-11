@@ -9,24 +9,26 @@
     Total expenses incurred: ₹{{ totalExpenses() }}
   </h2>
 </div>
-@if (allExpenses().length > 0) { @for (item of allExpenses(); track item.ID) {
-<div class="mb-2 border-2 border-indigo-300 dark:border-amber-300 rounded-lg">
+@if (!loadingData()) {
+<div class="mb-2 rounded-lg grid md:grid-cols-3 gap-4">
+  @for (item of allExpenses(); track item.ID) {
   <p-card header="Expense #{{ item.ID }}">
-    <div class="m-0 flex flex-col md:flex-row items-center justify-center">
-      <div
-        class="flex-0 basis-1/2 border-2 border-indigo-300 dark:border-amber-300 rounded-lg p-4 m-1 w-full"
-      >
-        Reason for expense: {{ item.ReasonForExpense }}
+    <div class="m-0 flex flex-col gap-2">
+      <div class="flex justify-between items-center">
+        <div>Reason for expense:</div>
+        <div>{{ item.ReasonForExpense }}</div>
       </div>
-      <div
-        class="flex-0 basis-1/2 border-2 border-indigo-300 dark:border-amber-300 rounded-lg p-4 m-1 w-full"
-      >
-        Amount spent: ₹{{ item.Amount }}
+      <div class="flex justify-between items-center">
+        <div>Amount spent:</div>
+        <div>₹{{ item.Amount }}</div>
       </div>
     </div>
   </p-card>
+  }
 </div>
-} } @else {
+} @else {
 <app-spinner class="flex items-center justify-center" />
+} @if (allExpenses().length === 0 && !loadingData()) {
+<div class="text-black dark:text-white text-3xl">No data</div>
 }
 <p-toast position="bottom-right" key="br" />

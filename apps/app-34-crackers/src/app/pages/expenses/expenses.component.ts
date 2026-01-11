@@ -1,5 +1,5 @@
 import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject, takeUntil, tap } from 'rxjs';
 import { ExpensesService } from '../../services/expenses.service';
 import {
   ExpenseInterface,
@@ -24,6 +24,7 @@ export default class ExpensesComponent implements OnInit, OnDestroy {
   #messageService = inject(MessageService);
   unsubscribe$ = new Subject<void>();
   allExpenses = signal<ExpenseInterface[]>([]);
+  loadingData = signal<boolean>(false);
   totalExpenses = signal<number>(0);
 
   public ngOnInit(): void {
@@ -38,13 +39,18 @@ export default class ExpensesComponent implements OnInit, OnDestroy {
   private getAllExpenses(): void {
     this.#expenseService
       .getAllExpenses()
-      .pipe(takeUntil(this.unsubscribe$))
+      .pipe(
+        tap(() => this.loadingData.set(true)),
+        takeUntil(this.unsubscribe$)
+      )
       .subscribe({
         next: (res: ExpenseResponseInterface) => {
+          this.loadingData.set(false);
           this.allExpenses.set(res.expenses);
           this.totalExpenses.set(res.total);
         },
         error: (err: HttpErrorResponse) => {
+          this.loadingData.set(false);
           this.errorHandler(err);
         },
       });
