@@ -7,7 +7,7 @@ import {
   InventoryItem,
   InventoryResponseInterface,
 } from '../../../interfaces/inventory.interface';
-import { Subject, switchMap, takeUntil } from 'rxjs';
+import { Subject, switchMap, takeUntil, tap } from 'rxjs';
 import { CardModule } from 'primeng/card';
 import { ButtonComponent } from '../../../components/button.component';
 import { PaginatorState } from 'primeng/paginator/paginator.interface';
@@ -78,46 +78,45 @@ import { SpinnerComponent } from '../../../components/spinner.component';
         [rowsPerPageOptions]="[5, 10, 15]"
       />
     </div>
-    @if (allItems().length > 0) { @for (item of allItems(); track item.ID) {
-    <div
-      class="mb-2 border-2 border-indigo-300 dark:border-amber-300 rounded-lg"
-    >
-      <p-card header="{{ item.BrandOrCompany }}: {{ item.Item }}">
-        <div class="m-0 grid grid-cols-1 md:grid-cols-3">
-          <div
-            class="flex items-center justify-start border-2 border-indigo-300 dark:border-amber-300 rounded-lg p-4 m-1"
-          >
-            Number of boxes per carton: {{ item.NumOfBoxes }}
-          </div>
-          <div
-            class="flex items-center justify-start border-2 border-indigo-300 dark:border-amber-300 rounded-lg p-4 m-1"
-          >
-            Number of Cartons: {{ item.NumOfCartons }}
-          </div>
-          <div
-            class="flex items-center justify-start border-2 border-indigo-300 dark:border-amber-300 rounded-lg p-4 m-1"
-          >
-            Price per carton: {{ item.PricePerCarton }}
-          </div>
-          <div
-            class="flex items-center justify-start border-2 border-indigo-300 dark:border-amber-300 rounded-lg p-4 m-1"
-          >
-            Subtotal: {{ item.SubTotal }}
-          </div>
-          <div class="items-center flex justify-center">
-            @if(inventoryState() !== 'Unpacked') {
-            <app-complete
-              [itemToBeCompleted]="item"
-              (toaster)="changeState($event)"
-              (toasterForPartial)="partialSuccessMessageService($event)"
-            />
-            }
-          </div>
-          <div class="hidden md:block"></div>
+    @if (allItems().length === 0 && !loadingData()) {
+    <div class="text-black dark:text-white text-3xl">No data</div>
+    } @if (!loadingData()) {
+    <div class="mb-2 rounded-lg grid md:grid-cols-3 gap-4">
+      @for (item of allItems(); track item.ID) {
+      <p-card
+        class="bg-gray-100 dark:bg-gray-900"
+        header="{{ item.BrandOrCompany }}: {{ item.Item }}"
+      >
+        <div class="flex justify-between items-center">
+          <div>Number of boxes per carton:</div>
+          <div>{{ item.NumOfBoxes }}</div>
+        </div>
+        <div class="flex justify-between items-center">
+          <div>Number of cartons:</div>
+          <div>{{ item.NumOfCartons }}</div>
+        </div>
+        <div class="flex justify-between items-center">
+          <div>Price per carton:</div>
+          <div>{{ item.PricePerCarton }}</div>
+        </div>
+        <div class="flex justify-between items-center">
+          <div>Subtotal:</div>
+          <div>{{ item.SubTotal }}</div>
+        </div>
+        <div class="items-center flex justify-center md:justify-start">
+          @if(inventoryState() !== 'Unpacked') {
+          <app-complete
+            class="items-center md:flex-row flex flex-col justify-center md:gap-2"
+            [itemToBeCompleted]="item"
+            (toaster)="changeState($event)"
+            (toasterForPartial)="partialSuccessMessageService($event)"
+          />
+          }
         </div>
       </p-card>
+      }
     </div>
-    } } @else {
+    } @else {
     <app-spinner class="flex items-center justify-center" />
     }
     <p-toast position="bottom-right" key="br" />
@@ -143,6 +142,7 @@ export class ItemsComponent implements OnInit, OnDestroy {
   searchBoxInvalidClass = signal<string>('');
   showAddItem = signal<boolean>(false);
   state = signal<string>('');
+  loadingData = signal<boolean>(false);
   inventoryState = this.#inventoryService.state;
 
   public ngOnInit(): void {
@@ -168,22 +168,26 @@ export class ItemsComponent implements OnInit, OnDestroy {
           this.state.set(res);
           this.pageNumber.set(1);
           this.pageSize.set(5);
-          return this.#inventoryService.getAllInventoryItems(
-            this.pageNumber(),
-            this.pageSize(),
-            this.title(),
-            this.state()
-          );
+          return this.#inventoryService
+            .getAllInventoryItems(
+              this.pageNumber(),
+              this.pageSize(),
+              this.title(),
+              this.state()
+            )
+            .pipe(tap(() => this.loadingData.set(true)));
         }),
         takeUntil(this.unsubscribe$)
       )
       .subscribe({
         next: (res: InventoryResponseInterface) => {
+          this.loadingData.set(false);
           this.allItems.set(res.inventoryItems);
           this.total.set(res.total);
           this.totalElements.set(res.totalElements);
         },
         error: (err: HttpErrorResponse) => {
+          this.loadingData.set(false);
           this.errorHandler(err);
         },
       });
@@ -238,12 +242,17 @@ export class ItemsComponent implements OnInit, OnDestroy {
         this.title(),
         this.state()
       )
-      .pipe(takeUntil(this.unsubscribe$))
+      .pipe(
+        tap(() => this.loadingData.set(true)),
+        takeUntil(this.unsubscribe$)
+      )
       .subscribe({
         next: (res: InventoryResponseInterface) => {
+          this.loadingData.set(false);
           this.allItems.set(res.inventoryItems);
         },
         error: (err: HttpErrorResponse) => {
+          this.loadingData.set(false);
           this.errorHandler(err);
         },
       });
@@ -309,14 +318,19 @@ export class ItemsComponent implements OnInit, OnDestroy {
             this.title(),
             this.state()
           )
-          .pipe(takeUntil(this.unsubscribe$))
+          .pipe(
+            tap(() => this.loadingData.set(true)),
+            takeUntil(this.unsubscribe$)
+          )
           .subscribe({
             next: (res: InventoryResponseInterface) => {
+              this.loadingData.set(false);
               this.allItems.set(res.inventoryItems);
               this.total.set(res.total);
               this.totalElements.update((value) => value - 1);
             },
             error: (err: HttpErrorResponse) => {
+              this.loadingData.set(false);
               this.errorHandler(err);
             },
           });

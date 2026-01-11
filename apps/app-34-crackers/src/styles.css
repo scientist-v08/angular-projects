@@ -2,3 +2,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.p-card {
+  background: #dcdcdd !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  .p-card {
+    background: #474748 !important;
+  }
+}
