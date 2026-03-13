@@ -3,7 +3,7 @@ import {
   provideClientHydration,
   withEventReplay,
 } from '@angular/platform-browser';
-import { AppComponent } from '../src/app/app.component';
+import { AppComponent } from './app/app.component';
 import { provideExperimentalZonelessChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { appRoutes } from './app/app.routes';

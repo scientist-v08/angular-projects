@@ -3,7 +3,7 @@ module.exports = {
   darkMode: 'media',
   content: [
     './packages/shared-ui/src/lib/shared-ui/**/*.{ts,html}',
-    './apps/vedic-astrology-matching/src/**/*.{ts,html}',
+    './apps/app-32-vedic-astrology-matching/src/**/*.{ts,html}',
     './apps/app-34-crackers/src/**/*.{ts,html}',
   ],
   theme: {
