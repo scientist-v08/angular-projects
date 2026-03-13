@@ -1,4 +1,4 @@
-import { Component, computed, input, signal } from '@angular/core';
+import { Component, computed, input, output, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { HideNavDirective } from '../directives/hideNav-directive';
 import { OnClickedDirective } from '../directives/onClicked-directive';
@@ -25,7 +25,13 @@ import { HeaderRouterInterface } from '../interfaces/header-router.interface';
         <div class="section__items">
           @for (route of allRoutes(); track route.id) {
           <h2 class="p-2 flex items-center justify-center text-xl">
+            @if (route.heading === 'Logout') {
+            <p style="cursor: pointer;" (mousedown)="logoutClicked.emit()">
+              {{ route.heading }}
+            </p>
+            } @else {
             <a [routerLink]="route.route">{{ route.heading }}</a>
+            }
           </h2>
           }
         </div>
@@ -51,6 +57,7 @@ export class SharedUiComponent {
   navBarStatus = signal<boolean>(false);
   allRoutes = input<HeaderRouterInterface[]>();
   title = input<string>('');
+  logoutClicked = output<void>();
   baseClass = 'sticky top-0 z-10 p-3';
   inputBgColorTxColor = input<string>('');
   finalClass = computed(() => this.baseClass + this.inputBgColorTxColor());
