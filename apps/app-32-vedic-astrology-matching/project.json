@@ -1,120 +1,122 @@
 {
-  "name": "app-32-vedic-astrology-matching",
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "projectType": "application",
-  "prefix": "app",
-  "sourceRoot": "apps/app-32-vedic-astrology-matching/src",
-  "tags": [],
-  "targets": {
-    "build": {
-      "executor": "@angular-devkit/build-angular:application",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "outputPath": "dist/apps/app-32-vedic-astrology-matching",
-        "index": "apps/app-32-vedic-astrology-matching/src/index.html",
-        "browser": "apps/app-32-vedic-astrology-matching/src/main.ts",
-        "polyfills": [],
-        "tsConfig": "apps/app-32-vedic-astrology-matching/tsconfig.app.json",
-        "assets": [
-          {
-            "glob": "**/*",
-            "input": "apps/app-32-vedic-astrology-matching/public",
-            "output": "/assets"
-          },
-          {
-            "glob": "desktop2gimp.jpg",
-            "input": "apps/app-32-vedic-astrology-matching/public",
-            "output": "/assets"
-          },
-          {
-            "glob": "desktop1gimp.jpg",
-            "input": "apps/app-32-vedic-astrology-matching/public",
-            "output": "/assets"
-          },
-          {
-            "glob": "about.jpg",
-            "input": "apps/app-32-vedic-astrology-matching/public",
-            "output": "/assets"
-          },
-          {
-            "glob": "instructionsgimp.jpg",
-            "input": "apps/app-32-vedic-astrology-matching/public",
-            "output": "/assets"
-          },
-          {
-            "glob": "oogwaygimp.jpg",
-            "input": "apps/app-32-vedic-astrology-matching/public",
-            "output": "/assets"
-          }
-        ],
-        "styles": ["apps/app-32-vedic-astrology-matching/src/styles.css"],
-        "scripts": []
-      },
-      "configurations": {
-        "production": {
-          "budgets": [
-            {
-              "type": "initial",
-              "maximumWarning": "500kb",
-              "maximumError": "1mb"
+    "name": "app-32-vedic-astrology-matching",
+    "$schema": "../../node_modules/nx/schemas/project-schema.json",
+    "projectType": "application",
+    "prefix": "app",
+    "sourceRoot": "apps/app-32-vedic-astrology-matching/src",
+    "tags": [],
+    "targets": {
+        "build": {
+            "executor": "@angular-devkit/build-angular:application",
+            "outputs": ["{options.outputPath}"],
+            "options": {
+                "outputPath": "dist/apps/app-32-vedic-astrology-matching",
+                "index": "apps/app-32-vedic-astrology-matching/src/index.html",
+                "browser": "apps/app-32-vedic-astrology-matching/src/main.ts",
+                "polyfills": [],
+                "tsConfig": "apps/app-32-vedic-astrology-matching/tsconfig.app.json",
+                "assets": [
+                    {
+                        "glob": "**/*",
+                        "input": "apps/app-32-vedic-astrology-matching/public",
+                        "output": "/assets"
+                    },
+                    {
+                        "glob": "desktop2gimp.jpg",
+                        "input": "apps/app-32-vedic-astrology-matching/public",
+                        "output": "/assets"
+                    },
+                    {
+                        "glob": "desktop1gimp.jpg",
+                        "input": "apps/app-32-vedic-astrology-matching/public",
+                        "output": "/assets"
+                    },
+                    {
+                        "glob": "about.jpg",
+                        "input": "apps/app-32-vedic-astrology-matching/public",
+                        "output": "/assets"
+                    },
+                    {
+                        "glob": "instructionsgimp.jpg",
+                        "input": "apps/app-32-vedic-astrology-matching/public",
+                        "output": "/assets"
+                    },
+                    {
+                        "glob": "oogwaygimp.jpg",
+                        "input": "apps/app-32-vedic-astrology-matching/public",
+                        "output": "/assets"
+                    }
+                ],
+                "styles": ["apps/app-32-vedic-astrology-matching/src/styles.css"],
+                "scripts": []
             },
-            {
-              "type": "anyComponentStyle",
-              "maximumWarning": "2kb",
-              "maximumError": "4kb"
+            "configurations": {
+                "production": {
+                    "budgets": [
+                        {
+                            "type": "initial",
+                            "maximumWarning": "500kb",
+                            "maximumError": "1mb"
+                        },
+                        {
+                            "type": "anyComponentStyle",
+                            "maximumWarning": "2kb",
+                            "maximumError": "4kb"
+                        }
+                    ],
+                    "outputHashing": "all",
+                    "outputPath": "dist/apps/app-32-vedic-astrology-matching",
+                    "server": "apps/app-32-vedic-astrology-matching/src/main.server.ts",
+                    "prerender": true,
+                    "ssr": {
+                        "entry": "apps/app-32-vedic-astrology-matching/server.ts"
+                    }
+                },
+                "development": {
+                    "optimization": false,
+                    "extractLicenses": false,
+                    "sourceMap": true
+                }
+            },
+            "defaultConfiguration": "production"
+        },
+        "serve": {
+            "executor": "@angular-devkit/build-angular:dev-server",
+            "configurations": {
+                "production": {
+                    "buildTarget": "app-32-vedic-astrology-matching:build:production"
+                },
+                "development": {
+                    "buildTarget": "app-32-vedic-astrology-matching:build:development"
+                }
+            },
+            "defaultConfiguration": "development",
+            "continuous": true
+        },
+        "extract-i18n": {
+            "executor": "@angular-devkit/build-angular:extract-i18n",
+            "options": {
+                "buildTarget": "app-32-vedic-astrology-matching:build"
             }
-          ],
-          "outputHashing": "all",
-          "outputPath": "dist/apps/app-32-vedic-astrology-matching",
-          "server": "apps/app-32-vedic-astrology-matching/src/main.server.ts",
-          "prerender": true,
-          "ssr": {
-            "entry": "apps/app-32-vedic-astrology-matching/server.ts"
-          }
         },
-        "development": {
-          "optimization": false,
-          "extractLicenses": false,
-          "sourceMap": true
-        }
-      },
-      "defaultConfiguration": "production"
-    },
-    "serve": {
-      "executor": "@angular-devkit/build-angular:dev-server",
-      "configurations": {
-        "production": {
-          "buildTarget": "app-32-vedic-astrology-matching:build:production"
+        "lint": {
+            "executor": "@nx/eslint:lint"
         },
-        "development": {
-          "buildTarget": "app-32-vedic-astrology-matching:build:development"
+        "test": {
+            "executor": "@nx/jest:jest",
+            "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+            "options": {
+                "jestConfig": "apps/app-32-vedic-astrology-matching/jest.config.ts",
+                "tsConfig": "apps/app-32-vedic-astrology-matching/tsconfig.spec.json"
+            }
+        },
+        "serve-static": {
+            "executor": "@nx/web:file-server",
+            "options": {
+                "buildTarget": "app-32-vedic-astrology-matching:build",
+                "staticFilePath": "dist/apps/app-32-vedic-astrology-matching/browser",
+                "spa": true
+            }
         }
-      },
-      "defaultConfiguration": "development"
-    },
-    "extract-i18n": {
-      "executor": "@angular-devkit/build-angular:extract-i18n",
-      "options": {
-        "buildTarget": "app-32-vedic-astrology-matching:build"
-      }
-    },
-    "lint": {
-      "executor": "@nx/eslint:lint"
-    },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
-      "options": {
-        "jestConfig": "apps/app-32-vedic-astrology-matching/jest.config.ts"
-      }
-    },
-    "serve-static": {
-      "executor": "@nx/web:file-server",
-      "options": {
-        "buildTarget": "app-32-vedic-astrology-matching:build",
-        "staticFilePath": "dist/apps/app-32-vedic-astrology-matching/browser",
-        "spa": true
-      }
     }
-  }
 }

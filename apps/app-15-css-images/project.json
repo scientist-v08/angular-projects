@@ -1,101 +1,102 @@
 {
-  "name": "app-15-css-images",
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "projectType": "application",
-  "prefix": "app",
-  "sourceRoot": "apps/app-15-css-images/src",
-  "tags": [],
-  "targets": {
-    "build": {
-      "executor": "@angular-devkit/build-angular:browser",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "outputPath": "dist/apps/app-15-css-images",
-        "index": "apps/app-15-css-images/src/index.html",
-        "main": "apps/app-15-css-images/src/main.ts",
-        "polyfills": [],
-        "tsConfig": "apps/app-15-css-images/tsconfig.app.json",
-        "assets": [
-          {
-            "glob": "**/*",
-            "input": "apps/app-15-css-images/public",
-            "output": "/assets"
-          },
-          {
-            "glob": "bubbles.png",
-            "input": "apps/app-15-css-images/public",
-            "output": "/assets"
-          },
-          {
-            "glob": "scenic-2200x1331.png",
-            "input": "apps/app-15-css-images/public",
-            "output": "/assets"
-          }
-        ],
-        "styles": ["apps/app-15-css-images/src/styles.css"],
-        "scripts": []
-      },
-      "configurations": {
-        "production": {
-          "budgets": [
-            {
-              "type": "initial",
-              "maximumWarning": "500kb",
-              "maximumError": "1mb"
+    "name": "app-15-css-images",
+    "$schema": "../../node_modules/nx/schemas/project-schema.json",
+    "projectType": "application",
+    "prefix": "app",
+    "sourceRoot": "apps/app-15-css-images/src",
+    "tags": [],
+    "targets": {
+        "build": {
+            "executor": "@angular-devkit/build-angular:browser",
+            "outputs": ["{options.outputPath}"],
+            "options": {
+                "outputPath": "dist/apps/app-15-css-images",
+                "index": "apps/app-15-css-images/src/index.html",
+                "main": "apps/app-15-css-images/src/main.ts",
+                "polyfills": [],
+                "tsConfig": "apps/app-15-css-images/tsconfig.app.json",
+                "assets": [
+                    {
+                        "glob": "**/*",
+                        "input": "apps/app-15-css-images/public",
+                        "output": "/assets"
+                    },
+                    {
+                        "glob": "bubbles.png",
+                        "input": "apps/app-15-css-images/public",
+                        "output": "/assets"
+                    },
+                    {
+                        "glob": "scenic-2200x1331.png",
+                        "input": "apps/app-15-css-images/public",
+                        "output": "/assets"
+                    }
+                ],
+                "styles": ["apps/app-15-css-images/src/styles.css"],
+                "scripts": []
             },
-            {
-              "type": "anyComponentStyle",
-              "maximumWarning": "2kb",
-              "maximumError": "4kb"
+            "configurations": {
+                "production": {
+                    "budgets": [
+                        {
+                            "type": "initial",
+                            "maximumWarning": "500kb",
+                            "maximumError": "1mb"
+                        },
+                        {
+                            "type": "anyComponentStyle",
+                            "maximumWarning": "2kb",
+                            "maximumError": "4kb"
+                        }
+                    ],
+                    "outputHashing": "all"
+                },
+                "development": {
+                    "buildOptimizer": false,
+                    "optimization": false,
+                    "vendorChunk": true,
+                    "extractLicenses": false,
+                    "sourceMap": true,
+                    "namedChunks": true
+                }
+            },
+            "defaultConfiguration": "production"
+        },
+        "serve": {
+            "executor": "@angular-devkit/build-angular:dev-server",
+            "configurations": {
+                "production": {
+                    "buildTarget": "app-15-css-images:build:production"
+                },
+                "development": {
+                    "buildTarget": "app-15-css-images:build:development"
+                }
+            },
+            "defaultConfiguration": "development",
+            "continuous": true
+        },
+        "extract-i18n": {
+            "executor": "@angular-devkit/build-angular:extract-i18n",
+            "options": {
+                "buildTarget": "app-15-css-images:build"
             }
-          ],
-          "outputHashing": "all"
         },
-        "development": {
-          "buildOptimizer": false,
-          "optimization": false,
-          "vendorChunk": true,
-          "extractLicenses": false,
-          "sourceMap": true,
-          "namedChunks": true
-        }
-      },
-      "defaultConfiguration": "production"
-    },
-    "serve": {
-      "executor": "@angular-devkit/build-angular:dev-server",
-      "configurations": {
-        "production": {
-          "buildTarget": "app-15-css-images:build:production"
+        "lint": {
+            "executor": "@nx/eslint:lint"
         },
-        "development": {
-          "buildTarget": "app-15-css-images:build:development"
+        "test": {
+            "executor": "@nx/jest:jest",
+            "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+            "options": {
+                "jestConfig": "apps/app-15-css-images/jest.config.ts"
+            }
+        },
+        "serve-static": {
+            "executor": "@nx/web:file-server",
+            "options": {
+                "buildTarget": "app-15-css-images:build",
+                "spa": true
+            }
         }
-      },
-      "defaultConfiguration": "development"
-    },
-    "extract-i18n": {
-      "executor": "@angular-devkit/build-angular:extract-i18n",
-      "options": {
-        "buildTarget": "app-15-css-images:build"
-      }
-    },
-    "lint": {
-      "executor": "@nx/eslint:lint"
-    },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
-      "options": {
-        "jestConfig": "apps/app-15-css-images/jest.config.ts"
-      }
-    },
-    "serve-static": {
-      "executor": "@nx/web:file-server",
-      "options": {
-        "buildTarget": "app-15-css-images:build",
-        "spa": true
-      }
     }
-  }
 }

@@ -1,93 +1,95 @@
 {
-  "name": "app-33-canvas",
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "projectType": "application",
-  "prefix": "app",
-  "sourceRoot": "apps/app-33-canvas/src",
-  "tags": [],
-  "targets": {
-    "build": {
-      "executor": "@angular-devkit/build-angular:application",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "outputPath": "dist/apps/app-33-canvas",
-        "index": "apps/app-33-canvas/src/index.html",
-        "browser": "apps/app-33-canvas/src/main.ts",
-        "polyfills": [],
-        "tsConfig": "apps/app-33-canvas/tsconfig.app.json",
-        "assets": [
-          {
-            "glob": "**/*",
-            "input": "apps/app-33-canvas/public"
-          }
-        ],
-        "styles": ["apps/app-33-canvas/src/styles.css"],
-        "scripts": [],
-        "server": "apps/app-33-canvas/src/main.server.ts",
-        "prerender": true,
-        "ssr": {
-          "entry": "apps/app-33-canvas/server.ts"
-        }
-      },
-      "configurations": {
-        "production": {
-          "budgets": [
-            {
-              "type": "initial",
-              "maximumWarning": "500kb",
-              "maximumError": "1mb"
+    "name": "app-33-canvas",
+    "$schema": "../../node_modules/nx/schemas/project-schema.json",
+    "projectType": "application",
+    "prefix": "app",
+    "sourceRoot": "apps/app-33-canvas/src",
+    "tags": [],
+    "targets": {
+        "build": {
+            "executor": "@angular-devkit/build-angular:application",
+            "outputs": ["{options.outputPath}"],
+            "options": {
+                "outputPath": "dist/apps/app-33-canvas",
+                "index": "apps/app-33-canvas/src/index.html",
+                "browser": "apps/app-33-canvas/src/main.ts",
+                "polyfills": [],
+                "tsConfig": "apps/app-33-canvas/tsconfig.app.json",
+                "assets": [
+                    {
+                        "glob": "**/*",
+                        "input": "apps/app-33-canvas/public"
+                    }
+                ],
+                "styles": ["apps/app-33-canvas/src/styles.css"],
+                "scripts": [],
+                "server": "apps/app-33-canvas/src/main.server.ts",
+                "prerender": true,
+                "ssr": {
+                    "entry": "apps/app-33-canvas/server.ts"
+                }
             },
-            {
-              "type": "anyComponentStyle",
-              "maximumWarning": "2kb",
-              "maximumError": "4kb"
+            "configurations": {
+                "production": {
+                    "budgets": [
+                        {
+                            "type": "initial",
+                            "maximumWarning": "500kb",
+                            "maximumError": "1mb"
+                        },
+                        {
+                            "type": "anyComponentStyle",
+                            "maximumWarning": "2kb",
+                            "maximumError": "4kb"
+                        }
+                    ],
+                    "outputHashing": "all"
+                },
+                "development": {
+                    "optimization": false,
+                    "extractLicenses": false,
+                    "sourceMap": true
+                }
+            },
+            "defaultConfiguration": "production"
+        },
+        "serve": {
+            "executor": "@angular-devkit/build-angular:dev-server",
+            "configurations": {
+                "production": {
+                    "buildTarget": "app-33-canvas:build:production"
+                },
+                "development": {
+                    "buildTarget": "app-33-canvas:build:development"
+                }
+            },
+            "defaultConfiguration": "development",
+            "continuous": true
+        },
+        "extract-i18n": {
+            "executor": "@angular-devkit/build-angular:extract-i18n",
+            "options": {
+                "buildTarget": "app-33-canvas:build"
             }
-          ],
-          "outputHashing": "all"
         },
-        "development": {
-          "optimization": false,
-          "extractLicenses": false,
-          "sourceMap": true
-        }
-      },
-      "defaultConfiguration": "production"
-    },
-    "serve": {
-      "executor": "@angular-devkit/build-angular:dev-server",
-      "configurations": {
-        "production": {
-          "buildTarget": "app-33-canvas:build:production"
+        "lint": {
+            "executor": "@nx/eslint:lint"
         },
-        "development": {
-          "buildTarget": "app-33-canvas:build:development"
+        "test": {
+            "executor": "@nx/jest:jest",
+            "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+            "options": {
+                "jestConfig": "apps/app-33-canvas/jest.config.ts",
+                "tsConfig": "apps/app-33-canvas/tsconfig.spec.json"
+            }
+        },
+        "serve-static": {
+            "executor": "@nx/web:file-server",
+            "options": {
+                "buildTarget": "app-33-canvas:build",
+                "staticFilePath": "dist/apps/app-33-canvas/browser",
+                "spa": true
+            }
         }
-      },
-      "defaultConfiguration": "development"
-    },
-    "extract-i18n": {
-      "executor": "@angular-devkit/build-angular:extract-i18n",
-      "options": {
-        "buildTarget": "app-33-canvas:build"
-      }
-    },
-    "lint": {
-      "executor": "@nx/eslint:lint"
-    },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
-      "options": {
-        "jestConfig": "apps/app-33-canvas/jest.config.ts"
-      }
-    },
-    "serve-static": {
-      "executor": "@nx/web:file-server",
-      "options": {
-        "buildTarget": "app-33-canvas:build",
-        "staticFilePath": "dist/apps/app-33-canvas/browser",
-        "spa": true
-      }
     }
-  }
 }
