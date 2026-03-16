@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-profile',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './profile.component.html',
-  styles: ``,
+    selector: 'app-profile',
+    standalone: true,
+    imports: [],
+    templateUrl: './profile.component.html',
+    styles: ``,
 })
 export class ProfileComponent {}
