@@ -1,0 +1,32 @@
+<div class="container">
+  <div class="row mt-3">
+    <div class="col-md-12">
+      <button class="btn btn-secondary" (click)="onClickPreview()">Preview</button>
+    </div>
+  </div>
+</div>
+<div class="container scroll mb-3">
+  <div class="row mt-2">
+    <fb-draggable-item
+      *ngFor="let item of draggableItems"
+      [label]="item.label"
+      [type]="item.type"
+      class="col-md-2"
+    ></fb-draggable-item>
+  </div>
+  <div class="row mt-2">
+    <div class="col-md-12">
+      <fb-drop-zone></fb-drop-zone>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row mt-4">
+    <div class="col-md-12">
+      <div class="drop-zone">
+        <h4 style="text-align: center;">JSON</h4>
+        <pre>{{jsonFormat | json}}</pre>
+      </div>
+    </div>
+  </div>
+</div>

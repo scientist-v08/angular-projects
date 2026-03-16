@@ -1,0 +1,88 @@
+{
+    "name": "app-37-drag-and-drop-forms",
+    "$schema": "../../node_modules/nx/schemas/project-schema.json",
+    "projectType": "application",
+    "prefix": "app",
+    "sourceRoot": "apps/app-37-drag-and-drop-forms/src",
+    "tags": [],
+    "targets": {
+        "build": {
+            "executor": "@angular-devkit/build-angular:browser",
+            "outputs": ["{options.outputPath}"],
+            "options": {
+                "outputPath": "dist/apps/app-37-drag-and-drop-forms",
+                "polyfills": ["zone.js"],
+                "index": "apps/app-37-drag-and-drop-forms/src/index.html",
+                "main": "apps/app-37-drag-and-drop-forms/src/main.ts",
+                "tsConfig": "apps/app-37-drag-and-drop-forms/tsconfig.app.json",
+                "assets": [
+                    {
+                        "glob": "**/*",
+                        "input": "apps/app-37-drag-and-drop-forms/public"
+                    }
+                ],
+                "styles": ["apps/app-37-drag-and-drop-forms/src/styles.scss"]
+            },
+            "configurations": {
+                "production": {
+                    "budgets": [
+                        {
+                            "type": "initial",
+                            "maximumWarning": "500kb",
+                            "maximumError": "1mb"
+                        },
+                        {
+                            "type": "anyComponentStyle",
+                            "maximumWarning": "4kb",
+                            "maximumError": "8kb"
+                        }
+                    ],
+                    "outputHashing": "all"
+                },
+                "development": {
+                    "optimization": false,
+                    "extractLicenses": false,
+                    "sourceMap": true
+                }
+            },
+            "defaultConfiguration": "production"
+        },
+        "serve": {
+            "continuous": false,
+            "executor": "@angular-devkit/build-angular:dev-server",
+            "configurations": {
+                "production": {
+                    "buildTarget": "app-37-drag-and-drop-forms:build:production"
+                },
+                "development": {
+                    "buildTarget": "app-37-drag-and-drop-forms:build:development"
+                }
+            },
+            "defaultConfiguration": "development",
+            "options": {
+                "prebundle": false,
+                "buildTarget": "app-37-drag-and-drop-forms:build"
+            }
+        },
+        "lint": {
+            "executor": "@nx/eslint:lint"
+        },
+        "test": {
+            "executor": "@nx/jest:jest",
+            "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+            "options": {
+                "jestConfig": "apps/app-37-drag-and-drop-forms/jest.config.cts",
+                "tsConfig": "apps/app-37-drag-and-drop-forms/tsconfig.spec.json"
+            }
+        },
+        "serve-static": {
+            "continuous": true,
+            "executor": "@nx/web:file-server",
+            "options": {
+                "buildTarget": "app-37-drag-and-drop-forms:build",
+                "staticFilePath": "dist/apps/app-37-drag-and-drop-forms/browser",
+                "spa": true
+            }
+        }
+    }
+}
