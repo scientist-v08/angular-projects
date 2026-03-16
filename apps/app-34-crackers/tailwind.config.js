@@ -1,7 +1,12 @@
-/** @type {import('tailwindcss').Config} */
+const { createGlobPatternsForDependencies } = require('@nx/angular/tailwind');
+const { join } = require('path');
+
 module.exports = {
     darkMode: 'media',
-    content: ['./packages/shared-ui/src/lib/shared-ui/**/*.{ts,html}'],
+    content: [
+        join(__dirname, 'src/**/*.{html,ts}'),
+        ...createGlobPatternsForDependencies(__dirname),
+    ],
     theme: {
         extend: {
             fontFamily: {

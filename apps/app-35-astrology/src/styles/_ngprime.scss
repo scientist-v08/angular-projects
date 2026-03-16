@@ -1,0 +1,13 @@
+/* Overriding the in-built ng-prime styles */
+.p-datatable-thead {
+    tr {
+        th {
+            background-color: #e6ecf2 !important;
+            border-color: #d1d1d1 !important;
+        }
+    }
+}
+
+.p-datatable-tbody > tr > td {
+    border-color: #d1d1d1 !important;
+}
