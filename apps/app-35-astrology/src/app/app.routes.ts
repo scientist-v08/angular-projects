@@ -28,6 +28,10 @@ export const routes: Routes = [
         children: [
             { path: 'houses', loadComponent: () => import('./main/houses/houses.component') },
             {
+                path: 'upagrahas',
+                loadComponent: () => import('./main/upagrahas/upagrahas.component'),
+            },
+            {
                 path: 'bnk',
                 loadComponent: () =>
                     import('./main/balasAndKarakatvas/balasAndKarakatvas.component'),

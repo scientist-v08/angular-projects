@@ -38,6 +38,11 @@
                         "glob": "user.svg",
                         "input": "apps/app-35-astrology/public",
                         "output": "/assets"
+                    },
+                    {
+                        "glob": "circle-broken.svg",
+                        "input": "apps/app-35-astrology/public",
+                        "output": "/assets"
                     }
                 ],
                 "styles": ["apps/app-35-astrology/src/styles.scss"]

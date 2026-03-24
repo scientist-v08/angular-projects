@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment.development';
+import { UpagrahaPlacements } from '../main/upagrahas/upagrahas.component';
 import {
     BhavaEffectsInterface,
     BhavaEffectsReqBodyInterface,
@@ -13,6 +14,10 @@ import {
 } from '../models/bhava-lord-effects.interface';
 import { PairingReq, PairingResponse } from '../models/rashiNakshatra.interface';
 import { Form } from '../models/rasi-form.interface';
+import {
+    UpagrahasNKarakamshasReqBody,
+    UpagrahasNKarakamshasResponse,
+} from '../models/upagrahas.interface';
 
 @Injectable({
     providedIn: 'root',
@@ -64,9 +69,28 @@ export class ApiService {
             nkujaPlacement: navamsha.kuja ?? '',
             nguruPlacement: navamsha.guru ?? '',
             nshaniPlacement: navamsha.shani ?? '',
+            karakamsha: navamsha.karakamsha ?? '',
+            navBudhaAfflicted: navamsha.navBudhaAfflicted ?? false,
         };
 
         return this.http.post<BhavaEffectsInterface>(reqUrl, reqBody);
+    }
+
+    public postToGetUpagrahaEffects(
+        form: UpagrahaPlacements,
+    ): Observable<UpagrahasNKarakamshasResponse> {
+        const reqUrl = this.url + 'upagrahas';
+        const payload: UpagrahasNKarakamshasReqBody = {
+            ascendant: form.ascendant!,
+            dhuma: form.dhuma!,
+            vyatipata: form.vyatipata!,
+            parivesha: form.parivesha!,
+            indrachapa: form.indrachapa!,
+            upaketu: form.upaketu!,
+            gulika: form.gulika!,
+            pranapada: form.pranapada!,
+        };
+        return this.http.post<UpagrahasNKarakamshasResponse>(reqUrl, payload);
     }
 
     public postToGetAllBhavaLordEffects(

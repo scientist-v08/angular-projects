@@ -22,6 +22,7 @@ import { Subject, takeUntil } from 'rxjs';
 import {
     AllHouseEffectInterface,
     BhavaEffectsInterface,
+    KarakamshaResultsInterface,
 } from '../../models/bhava-effects.interface';
 import { NavamshaChart } from '../../models/navamsha-chart.interface';
 import { RasiChart } from '../../models/rasi-chart.interface';
@@ -86,6 +87,7 @@ export default class HousesComponent implements OnDestroy {
         '#D7CCC8',
     ]);
     generalEffects = signal<string[]>([]);
+    allKarakamshaResults = signal<KarakamshaResultsInterface[]>([]);
     zeroProportionHouse = signal<number>(0);
     proportionsObtained = signal<number[]>([]);
     effects = viewChild<ElementRef>('effectsContainer');
@@ -135,6 +137,8 @@ export default class HousesComponent implements OnDestroy {
             shani: null,
             rahu: null,
             ketu: null,
+            karakamsha: null,
+            navBudhaAfflicted: false,
         },
     });
     rasiIsIncomplete = computed(() => {
@@ -200,6 +204,7 @@ export default class HousesComponent implements OnDestroy {
                         this.allEffects.set(res.allHouseEffects);
                         this.generalEffects.set(res.generalEffects);
                         this.zeroProportionHouse.set(res.zeroProportion);
+                        this.allKarakamshaResults.set(res.karakamshaResults);
                         this.proportionsObtained.set(res.proportions);
                         this.data.set({
                             labels: this.labels(),
@@ -230,6 +235,7 @@ export default class HousesComponent implements OnDestroy {
                         this.generalEffects.set([]);
                         this.zeroProportionHouse.set(0);
                         this.proportionsObtained.set([]);
+                        this.allKarakamshaResults.set([]);
                         this.data.set(undefined);
                         this.options.set(undefined);
                         this.messageService.add({
@@ -270,7 +276,7 @@ export default class HousesComponent implements OnDestroy {
         }));
     }
 
-    updateNavamsha(key: keyof NavamshaChart, value: string | null) {
+    updateNavamsha(key: keyof NavamshaChart, value: string | null | boolean) {
         this.form.update(f => ({
             ...f,
             navamsha: {

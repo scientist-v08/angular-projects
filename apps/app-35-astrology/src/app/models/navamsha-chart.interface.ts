@@ -9,4 +9,6 @@ export interface NavamshaChart {
     shani: string | null;
     rahu: string | null;
     ketu: string | null;
+    karakamsha: string | null;
+    navBudhaAfflicted: boolean;
 }
