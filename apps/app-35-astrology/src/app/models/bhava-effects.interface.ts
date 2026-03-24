@@ -3,6 +3,7 @@ export interface BhavaEffectsInterface {
     zeroProportion: number;
     proportions: number[];
     generalEffects: string[];
+    karakamshaResults: KarakamshaResultsInterface[];
 }
 
 export interface AllHouseEffectInterface {
@@ -36,9 +37,16 @@ export interface BhavaEffectsReqBodyInterface {
     nguruPlacement: string;
     nshaniPlacement: string;
     firstHalf: boolean;
+    karakamsha: string;
+    navBudhaAfflicted: boolean;
 }
 
 export interface PlacementInterface {
     placement: string;
     combustion: boolean;
+}
+
+export interface KarakamshaResultsInterface {
+    index: number;
+    value: string;
 }

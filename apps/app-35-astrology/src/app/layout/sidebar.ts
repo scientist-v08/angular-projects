@@ -40,6 +40,14 @@ import { AstroSvgComponent } from '../svg/astrosvg.component';
                     <img class="mr-2 h-5" src="/assets/chart-line.svg" />
                     Pair matching
                 </a>
+                <a
+                    class="text-white no-underline text-base p-4 rounded ml-[7%] flex items-end w-full hover:bg-white/10 cursor-pointer"
+                    routerLink="/astrology/upagrahas"
+                    routerLinkActive="bg-white/10"
+                >
+                    <img class="mr-2 h-5" src="/assets/circle-broken.svg" />
+                    Upagrahas
+                </a>
             </div>
         </div>
     `,

@@ -1,7 +1,7 @@
 <div
     class="w-full mt-2 bg-white rounded-2xl p-6 flex flex-col gap-4 rotate-0 box-border"
     [class.h-[46rem]]="activeStep() == 1"
-    [class.h-[40rem]]="activeStep() != 1"
+    [class.h-[42rem]]="activeStep() != 1"
 >
     <h4 class="font-black font-lexend text-lg">Effects of the houses</h4>
     <p-stepper [linear]="true" [value]="activeStep()" (valueChange)="onStepChange($event)">
@@ -383,6 +383,24 @@
                                 optionValue="value"
                                 placeholder="Select sign"
                             ></p-select>
+                            <div class="flex align-items-center mt-2">
+                                <p-checkbox
+                                    class="ml-2"
+                                    [ngModel]="form().navamsha.navBudhaAfflicted"
+                                    (ngModelChange)="updateNavamsha('navBudhaAfflicted', $event)"
+                                    (keydown.enter)="
+                                        updateNavamsha(
+                                            'navBudhaAfflicted',
+                                            !form().navamsha.navBudhaAfflicted
+                                        )
+                                    "
+                                    binary="true"
+                                    inputId="navBudhaAfflicted"
+                                ></p-checkbox>
+                                <label class="ml-2" for="navBudhaAfflicted">
+                                    Is Budha Afflicted In Navamsha?
+                                </label>
+                            </div>
                         </div>
 
                         <div class="mb-4">
@@ -517,6 +535,25 @@
                                 placeholder="Select sign"
                             ></p-select>
                         </div>
+
+                        <div class="mb-4">
+                            <label
+                                class="block mb-2 after:content-['*'] after:ml-1 after:text-red-500"
+                                for="karakamsha"
+                            >
+                                Karakamsha
+                            </label>
+                            <p-select
+                                class="w-full"
+                                id="karakamsha"
+                                [options]="signs()"
+                                [ngModel]="form().navamsha.karakamsha"
+                                (ngModelChange)="updateNavamsha('karakamsha', $event)"
+                                optionLabel="label"
+                                optionValue="value"
+                                placeholder="Select sign"
+                            ></p-select>
+                        </div>
                     </div>
 
                     <div class="flex pt-6 justify-between">
@@ -534,6 +571,23 @@
         class="w-full mt-4 bg-white rounded-2xl p-6 flex flex-col gap-4 rotate-0 box-border"
         #effectsContainer
     >
+        <h4 class="font-black font-lexend text-lg">Karakamsha Effects or Soul effects obtained</h4>
+        <p-table [value]="allKarakamshaResults()" showGridlines>
+            <ng-template #header>
+                <tr>
+                    <th>Sl.No</th>
+                    <th>Effect</th>
+                </tr>
+            </ng-template>
+            <ng-template #body let-item>
+                <tr>
+                    <td>{{ item.index + 1 }}</td>
+                    <td>{{ item.value }}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+    <div class="w-full mt-4 bg-white rounded-2xl p-6 flex flex-col gap-4 rotate-0 box-border">
         <h4 class="font-black font-lexend text-lg">Effects obtained</h4>
         <p-table [value]="allEffects()" showGridlines>
             <ng-template #header>

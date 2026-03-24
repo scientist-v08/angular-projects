@@ -1,0 +1,65 @@
+<div class="w-full mt-2 bg-white rounded-2xl p-6 flex flex-col gap-6 box-border">
+    <div class="pb-4">
+        <h3 class="font-black font-lexend text-xl mb-4">Upagraha Placements</h3>
+        <p class="text-sm text-gray-500 mt-1">Select the Rashi for each Upagraha</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            @for (field of placementFields; track field.key) {
+                <div class="mb-4">
+                    <label
+                        class="block mb-2 font-medium after:content-['*'] after:ml-1 after:text-red-500"
+                    >
+                        {{ field.label }}
+                    </label>
+                    <p-select
+                        class="w-full"
+                        [options]="signs()"
+                        [ngModel]="upagrahaForm().placements[field.key]"
+                        (ngModelChange)="updateUpagrahaPlacement(field.key, $event)"
+                        optionLabel="label"
+                        optionValue="value"
+                        placeholder="Select Rashi"
+                    ></p-select>
+                </div>
+            }
+        </div>
+
+        <div class="flex pt-6 justify-end">
+            <p-button
+                [styleClass]="isFormValid() ? 'active:scale-95 transition-all' : 'opacity-70'"
+                (onClick)="callApi()"
+                disabled]="!isFormValid()"
+                label="Submit"
+            ></p-button>
+        </div>
+    </div>
+</div>
+@if (allEffects().length > 0) {
+    <div
+        class="w-full mt-4 bg-white rounded-2xl p-6 flex flex-col gap-4 rotate-0 box-border"
+        #effectsContainer
+    >
+        <h4 class="font-black font-lexend text-lg">Upagraha effects obtained</h4>
+        <p-table [value]="allEffects()" showGridlines>
+            <ng-template #header>
+                <tr>
+                    <th>Upagraha</th>
+                    <th>Effects</th>
+                </tr>
+            </ng-template>
+            <ng-template #body let-item>
+                <tr>
+                    <td>{{ item.upagraha }}</td>
+                    <td>
+                        <ul class="list-disc m-2">
+                            @for (itemEffects of item.effects; track $index) {
+                                <li>{{ itemEffects }}</li>
+                            }
+                        </ul>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+}
+<p-toast position="bottom-right" key="br"></p-toast>
