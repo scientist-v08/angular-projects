@@ -11,8 +11,8 @@ import { HeaderRouterInterface } from '../interfaces/header-router.interface';
     imports: [HideNavDirective, OnClickedDirective, ShowNavDirective, RouterLink],
     template: `
         <header [class]="finalClass()">
-            <section class="py-1 px-2 flex flex-row flex-nowrap justify-between">
-                <h1 class="flex items-center justify-center text-2xl font-semibold">
+            <section class="py-1 px-2 flex flex-row flex-nowrap justify-between w-full">
+                <h1 class="flex align-center items-center justify-center text-2xl font-semibold">
                     {{ title() }}
                 </h1>
                 <button

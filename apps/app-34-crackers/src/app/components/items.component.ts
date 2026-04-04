@@ -8,10 +8,7 @@ import { ButtonComponent } from './button.component';
     standalone: true,
     imports: [ButtonComponent, ReactiveFormsModule],
     template: `
-        <div
-            class="bg-white dark:bg-slate-700 rounded-lg shadow-xl p-6 lg:p-8 max-w-[100%] md:max-w-[80%] mt-4
-            grid__container lg:space-x-8 space-y-8 lg:space-y-0 mx-auto"
-        >
+        <div class="grid__container">
             <div class="one">{{ item().slNo }}</div>
             <div class="two">{{ item().item }}</div>
             <div class="three">

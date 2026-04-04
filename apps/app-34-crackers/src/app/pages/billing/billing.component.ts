@@ -75,6 +75,7 @@ export default class BillingComponent implements AfterViewChecked, OnDestroy {
     shouldScroll = signal<boolean>(false);
     scrollToCompare = signal<boolean>(false);
     selectAtLeastOneitem = signal<boolean>(false);
+    otherAmt = signal<number>(0);
     billId = '';
     billComparison = signal<BillComparisonInterface[]>([]);
     showComparisons = signal<boolean>(false);
@@ -99,6 +100,7 @@ export default class BillingComponent implements AfterViewChecked, OnDestroy {
 
     addItem(): void {
         if (this.billingForm.valid) {
+            this.showTotal.set(false);
             this.slNo.update(num => num + 1);
             const obtainedDiscount = Number(this.billingForm.controls.discount.getRawValue()) ?? 0;
             const actualDiscount = 100 - obtainedDiscount * 100;
@@ -148,6 +150,7 @@ export default class BillingComponent implements AfterViewChecked, OnDestroy {
         this.showItems.set(false);
         this.showTotal.set(false);
         this.items.set([]);
+        this.otherAmt.set(0);
         this.slNo.set(0);
         this.shouldScroll.set(false);
         this.billComparison.set([]);
@@ -192,8 +195,9 @@ export default class BillingComponent implements AfterViewChecked, OnDestroy {
 
     generateBill(): void {
         const customerName = this.billingForm.controls.name.getRawValue() ?? '';
-        const mobileNumber = this.billingForm.controls.number.getRawValue() ?? '';
-        if (customerName.length < 5 || mobileNumber.length !== 10) {
+        const mobileControl = this.billingForm.get('number');
+        const mobileNumber = (mobileControl?.value ?? '').toString().trim();
+        if (customerName.length < 5 || !mobileNumber || !/^\d{10}$/.test(mobileNumber)) {
             this.#messageService.add({
                 severity: 'error',
                 summary: 'Error',
@@ -208,6 +212,7 @@ export default class BillingComponent implements AfterViewChecked, OnDestroy {
             mobile: mobileNumber,
             grandTotal: this.totalCost(),
             billItems: this.items(),
+            finalizedAmt: this.otherAmt(),
         };
         this.#billingService
             .generateBill(requestBody)
@@ -241,11 +246,25 @@ export default class BillingComponent implements AfterViewChecked, OnDestroy {
     }
 
     previewBill(): void {
+        const mobileControl = this.billingForm.get('number');
+        const mobileNumber = (mobileControl?.value ?? '').toString().trim();
+
+        if (!mobileNumber || !/^\d{10}$/.test(mobileNumber)) {
+            this.#messageService.add({
+                severity: 'error',
+                summary: 'Error',
+                detail: 'The customer mobile number is to be entered',
+                key: 'br',
+                life: 3000,
+            });
+            return;
+        }
         const requestBody: BillDetailsInterface = {
-            user: this.billingForm.controls.name.getRawValue() ?? '',
-            mobile: this.billingForm.controls.number.getRawValue() ?? '',
+            user: 'NA',
+            mobile: mobileNumber,
             grandTotal: this.totalCost(),
             billItems: this.items(),
+            finalizedAmt: this.otherAmt(),
         };
         this.#billingService
             .generatePreviewBill(requestBody)
@@ -266,11 +285,11 @@ export default class BillingComponent implements AfterViewChecked, OnDestroy {
                         'https://wa.me/91' + (this.billingForm.controls.number.getRawValue() ?? '');
                     window.open(whatsappTab, '_blank');
                 },
-                error: () => {
+                error: err => {
                     this.#messageService.add({
                         severity: 'error',
                         summary: 'Error',
-                        detail: 'Unable to process the request',
+                        detail: err.statusText,
                         key: 'br',
                         life: 3000,
                     });
@@ -296,6 +315,10 @@ export default class BillingComponent implements AfterViewChecked, OnDestroy {
         this.totalCost.set(
             this.items().reduce((sum, item) => sum + Math.floor(item.subTotal || 0), 0),
         );
+    }
+
+    otherFinalized(amt: number): void {
+        this.otherAmt.set(amt);
     }
 
     ngOnDestroy(): void {
