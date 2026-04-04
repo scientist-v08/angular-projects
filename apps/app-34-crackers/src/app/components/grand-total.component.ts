@@ -6,14 +6,11 @@ import { ButtonComponent } from './button.component';
     standalone: true,
     imports: [ButtonComponent],
     template: `
-        <div
-            class="bg-white dark:bg-slate-700 rounded-lg shadow-xl p-6 lg:p-8 max-w-[100%] md:max-w-[80%] mt-4
-            grid__container lg:space-x-8 space-y-8 lg:space-y-0 mx-auto"
-        >
+        <div class="grid__container">
             <div class="one">
-                <h1>Grand Total:</h1>
+                <h1>{{ finalizedAmt() > 0 ? 'Finalized Amount:' : 'Grand Total:' }}</h1>
             </div>
-            <div class="two">{{ grandTotal() }}</div>
+            <div class="two">{{ finalizedAmt() > 0 ? finalizedAmt() : grandTotal() }}</div>
             <div class="three">
                 <app-button (buttonClicked)="generateBill.emit()">Generate Bill</app-button>
                 <app-button (buttonClicked)="previewBill.emit()">Preview Bill</app-button>
@@ -56,12 +53,22 @@ import { ButtonComponent } from './button.component';
                         'two'
                         'three';
                 }
+                .one {
+                    flex-direction: column;
+                }
+                .two {
+                    flex-direction: column;
+                }
+                .three {
+                    flex-direction: column;
+                }
             }
         `,
     ],
 })
 export class GrandTotalComponent {
     grandTotal = input.required<number>();
+    finalizedAmt = input.required<number>();
     generateBill = output<void>();
     previewBill = output<void>();
     comparePrices = output<void>();

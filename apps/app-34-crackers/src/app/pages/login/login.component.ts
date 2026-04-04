@@ -12,147 +12,189 @@ import { LoginService } from '../../services/login.service';
     imports: [ReactiveFormsModule],
     selector: 'app-login',
     template: `
-        <div class="container">
-            <form
-                class="inner__container p-8 w-full max-w-md flex flex-col items-center bg-white dark:bg-gray-800 rounded-lg shadow-md"
-                [formGroup]="loginForm"
-                (ngSubmit)="loginSubmission()"
-            >
-                <h1 class="font-inter text-4xl font-bold mb-4 text-center">Login</h1>
-
-                <div class="width__input">
-                    <input
-                        class="font-inter input__password px-4 py-4 text-lg rounded-md border border-gray-300 dark:border-gray-600 
-                  focus:outline-none focus:ring-2 dark:text-black focus:ring-amber-300 dark:focus:ring-pink-400"
-                        id="username"
-                        name="username"
-                        formControlName="username"
-                        type="text"
-                        placeholder="User"
-                    />
-                    @if (
-                        loginForm.get('username')?.touched &&
-                        loginForm.get('username')?.hasError('required')
-                    ) {
-                        <div class="text-red-500 text-sm">User is required</div>
-                    }
-                </div>
-
-                <div class="width__input div__password__container mt-6">
-                    <input
-                        class="font-inter input__password px-4 py-4 text-lg rounded-md border border-gray-300 dark:border-gray-600 
-                  focus:outline-none focus:ring-2 dark:text-black focus:ring-amber-300 dark:focus:ring-pink-400 appearance-none"
-                        id="password"
-                        [type]="passwordType()"
-                        name="password"
-                        formControlName="password"
-                        placeholder="Password"
-                    />
-                    <button
-                        class="mtn20px inset-y-0 right-0 flex items-center pr-3 text-gray-600 dark:text-gray-300 
-                    hover:text-black dark:hover:text-white focus:outline-none"
-                        (click)="togglePasswordVisibility()"
-                        type="button"
-                    >
-                        @if (passwordType() === 'password') {
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="16"
-                                height="16"
-                                fill="#000"
-                                viewBox="0 0 16 16"
-                            >
-                                <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0" />
-                                <path
-                                    d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"
-                                />
-                            </svg>
-                        } @else {
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="16"
-                                height="16"
-                                fill="#000"
-                                viewBox="0 0 16 16"
-                            >
-                                <path
-                                    d="m10.79 12.912-1.614-1.615a3.5 3.5 0 0 1-4.474-4.474l-2.06-2.06C.938 6.278 0 8 0 8s3 5.5 8 5.5a7 7 0 0 0 2.79-.588M5.21 3.088A7 7 0 0 1 8 2.5c5 0 8 5.5 8 5.5s-.939 1.721-2.641 3.238l-2.062-2.062a3.5 3.5 0 0 0-4.474-4.474z"
-                                />
-                                <path
-                                    d="M5.525 7.646a2.5 2.5 0 0 0 2.829 2.829zm4.95.708-2.829-2.83a2.5 2.5 0 0 1 2.829 2.829zm3.171 6-12-12 .708-.708 12 12z"
-                                />
-                            </svg>
-                        }
-                    </button>
-                </div>
-                @if (
-                    loginForm.get('password')?.touched &&
-                    loginForm.get('password')?.hasError('required')
-                ) {
-                    <div class="text-red-500 text-sm">Password is required</div>
-                }
-                @if (
-                    loginForm.get('password')?.touched &&
-                    loginForm.get('password')?.hasError('pattern')
-                ) {
-                    <div class="text-red-500 text-sm">
-                        Password will have 1 capital letter, 1 small letter, 1 number and 1 special
-                        character and will be at least 8 characters long
-                    </div>
-                }
-                @if (incorrectPassword()) {
-                    <div class="text-red-500 text-sm">Incorrect password. Login failed.</div>
-                }
-
-                <button
-                    class="font-inter width__input text-black bg-amber-200 dark:text-white dark:bg-pink-600 hover:bg-amber-100 
-            dark:hover:bg-pink-500 focus:ring-2 focus:ring-amber-300 dark:focus:ring-pink-400 font-medium px-4 py-4 rounded-md 
-            text-lg transition-colors mt-8 p-2"
-                    type="submit"
+        <div
+            class="h-full flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100 dark:from-gray-900 dark:to-black p-4"
+        >
+            <div class="w-full max-w-md">
+                <!-- Main Login Card -->
+                <div
+                    class="bg-white dark:bg-gray-800 shadow-2xl rounded-3xl overflow-hidden border border-gray-100 dark:border-gray-700 transition-all duration-300"
                 >
-                    Login
-                </button>
-            </form>
+                    <div class="p-8 sm:p-10">
+                        <div class="text-center mb-10">
+                            <h1
+                                class="text-4xl font-extrabold text-gray-900 dark:text-white tracking-tight"
+                            >
+                                Login
+                            </h1>
+                            <p class="mt-2 text-gray-500 dark:text-gray-400">
+                                Sign in to your account
+                            </p>
+                        </div>
+
+                        <form
+                            class="space-y-6"
+                            [formGroup]="loginForm"
+                            (ngSubmit)="loginSubmission()"
+                        >
+                            <!-- Username Field -->
+                            <div>
+                                <label
+                                    class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2 ml-1"
+                                    for="username"
+                                >
+                                    Username
+                                </label>
+                                <div class="relative group">
+                                    <input
+                                        class="w-full px-5 py-4 bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-600 rounded-2xl text-gray-900 dark:text-white placeholder-gray-400 focus:ring-4 focus:ring-amber-500/10 focus:border-amber-500 outline-none transition-all duration-200"
+                                        id="username"
+                                        type="text"
+                                        formControlName="username"
+                                        placeholder="Enter your username"
+                                    />
+                                </div>
+                                @if (
+                                    loginForm.get('username')?.touched &&
+                                    loginForm.get('username')?.hasError('required')
+                                ) {
+                                    <p
+                                        class="mt-2 text-xs font-medium text-red-500 flex items-center animate-pulse"
+                                    >
+                                        <span class="mr-1">⚠️</span>
+                                        User is required
+                                    </p>
+                                }
+                            </div>
+
+                            <!-- Password Field -->
+                            <div>
+                                <label
+                                    class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2 ml-1"
+                                    for="password"
+                                >
+                                    Password
+                                </label>
+                                <div class="relative group">
+                                    <input
+                                        class="w-full px-5 py-4 bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-600 rounded-2xl text-gray-900 dark:text-white placeholder-gray-400 focus:ring-4 focus:ring-amber-500/10 focus:border-amber-500 outline-none transition-all duration-200 pr-12"
+                                        id="password"
+                                        [type]="passwordType()"
+                                        formControlName="password"
+                                        placeholder="••••••••"
+                                    />
+                                    <button
+                                        class="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-amber-500 transition-colors focus:outline-none"
+                                        (click)="togglePasswordVisibility()"
+                                        type="button"
+                                    >
+                                        @if (passwordType() === 'password') {
+                                            <svg
+                                                class="h-5 w-5"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                fill="none"
+                                                viewBox="0 0 24 24"
+                                                stroke="currentColor"
+                                            >
+                                                <path
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    stroke-width="2"
+                                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                                                />
+                                                <path
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    stroke-width="2"
+                                                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                                                />
+                                            </svg>
+                                        } @else {
+                                            <svg
+                                                class="h-5 w-5"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                fill="none"
+                                                viewBox="0 0 24 24"
+                                                stroke="currentColor"
+                                            >
+                                                <path
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    stroke-width="2"
+                                                    d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18"
+                                                />
+                                            </svg>
+                                        }
+                                    </button>
+                                </div>
+
+                                @if (loginForm.get('password')?.touched) {
+                                    @if (loginForm.get('password')?.hasError('required')) {
+                                        <p
+                                            class="mt-2 text-xs font-medium text-red-500 flex items-center animate-pulse"
+                                        >
+                                            <span class="mr-1">⚠️</span>
+                                            Password is required
+                                        </p>
+                                    } @else if (loginForm.get('password')?.hasError('pattern')) {
+                                        <div
+                                            class="mt-2 p-3 bg-red-50 dark:bg-red-900/20 rounded-xl border border-red-100 dark:border-red-800/30"
+                                        >
+                                            <p
+                                                class="text-xs font-medium text-red-600 dark:text-red-400 leading-relaxed"
+                                            >
+                                                Password must have 1 capital letter, 1 small letter,
+                                                1 number, 1 special character and be at least 8
+                                                characters long.
+                                            </p>
+                                        </div>
+                                    }
+                                }
+
+                                @if (incorrectPassword()) {
+                                    <p
+                                        class="mt-4 text-sm font-bold text-red-500 text-center bg-red-50 dark:bg-red-900/20 py-3 rounded-xl border border-red-100 dark:border-red-800/30 shadow-sm"
+                                    >
+                                        Incorrect password. Login failed.
+                                    </p>
+                                }
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="pt-4">
+                                <button
+                                    class="w-full group relative flex justify-center py-4 px-4 border border-transparent text-lg font-bold rounded-2xl text-black bg-amber-300 hover:bg-amber-400 dark:text-white dark:bg-pink-600 dark:hover:bg-pink-700 focus:outline-none focus:ring-4 focus:ring-amber-500/50 dark:focus:ring-pink-500/50 transition-all duration-300 shadow-lg shadow-amber-500/20 dark:shadow-pink-500/20 active:scale-[0.98]"
+                                    type="submit"
+                                >
+                                    <span class="flex items-center">
+                                        Login
+                                        <svg
+                                            class="h-5 w-5 ml-2 group-hover:translate-x-1 transition-transform"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            stroke="currentColor"
+                                        >
+                                            <path
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                stroke-width="2"
+                                                d="M14 5l7 7m0 0l-7 7m7-7H3"
+                                            />
+                                        </svg>
+                                    </span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     `,
-    styles: [
-        `
-            .container {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-
-            .width__input {
-                width: 100%;
-            }
-
-            .div__password__container {
-                position: relative;
-            }
-
-            .input__password {
-                width: 100%;
-            }
-
-            .mtn20px {
-                position: absolute;
-            }
-
-            @media (min-width: 768px) {
-                .container {
-                    min-height: 80vh;
-                    min-width: 90vw;
-                    .inner__container {
-                        width: 50%;
-                        .width__input {
-                            width: 66%;
-                        }
-                    }
-                }
-            }
-        `,
-    ],
+    styles: [],
+    host: {
+        class: 'block h-full',
+    },
 })
 export default class LoginComponent implements OnDestroy {
     #fb = inject(FormBuilder);
