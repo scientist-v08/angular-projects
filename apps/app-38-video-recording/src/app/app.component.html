@@ -1,0 +1,17 @@
+<p-menubar [model]="items()">
+    <ng-template #start>
+        <h1
+            class="flex align-center items-center justify-center text-2xl font-semibold hidden md:block"
+        >
+            Multimedia
+        </h1>
+    </ng-template>
+    <ng-template #end>
+        <h1
+            class="flex align-center items-center justify-center text-2xl font-semibold md:hidden block"
+        >
+            Multimedia
+        </h1>
+    </ng-template>
+</p-menubar>
+<router-outlet></router-outlet>

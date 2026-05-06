@@ -13,10 +13,9 @@
         "lib": ["es2020", "dom"],
         "skipLibCheck": true,
         "skipDefaultLibCheck": true,
-        "baseUrl": ".",
         "paths": {
-            "@projects/dialog": ["packages/dialog/src/index.ts"],
-            "@projects/shared-ui": ["packages/shared-ui/src/index.ts"]
+            "@projects/dialog": ["./packages/dialog/src/index.ts"],
+            "@projects/shared-ui": ["./packages/shared-ui/src/index.ts"]
         }
     },
     "exclude": ["node_modules", "tmp"]
