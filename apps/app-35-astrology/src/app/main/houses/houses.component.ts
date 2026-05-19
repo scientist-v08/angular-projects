@@ -99,7 +99,7 @@ export default class HousesComponent implements OnDestroy {
         { label: 'Simha (Leo)', value: 'Simha' },
         { label: 'Kanya (Virgo)', value: 'Kanya' },
         { label: 'Tula (Libra)', value: 'Tula' },
-        { label: 'Vrishchika (Scorpio)', value: 'Vruschika' },
+        { label: 'Vruschika (Scorpio)', value: 'Vruschika' },
         { label: 'Dhanu (Sagittarius)', value: 'Dhanassu' },
         { label: 'Makara (Capricorn)', value: 'Makara' },
         { label: 'Kumbha (Aquarius)', value: 'Kumbha' },

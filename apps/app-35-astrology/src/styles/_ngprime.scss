@@ -11,3 +11,9 @@
 .p-datatable-tbody > tr > td {
     border-color: #d1d1d1 !important;
 }
+
+.p-menuitem-active .p-menubar-item-label,
+.p-menubar-item-link-active .p-menubar-item-label,
+.p-menubar-item.p-menuitem-active .p-menubar-item-label {
+    color: black !important;
+}

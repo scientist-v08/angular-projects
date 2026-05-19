@@ -1,0 +1,25 @@
+Five rules for designing in mobile
+1. Focus on context of use. Example:- When are they using it? What are they trying to accomplish?
+2. Simplyfy. Let each screen do a single thing and move to another screen for the next design.
+3. Design for thumbs and put the menu items in the bottom for mobiles.
+4. Make clickable things at least 3rem (48px). This is because we should also design for fat fingers.
+5. Minimize the need to type.
+
+UI Designs
+1. Design is design is design. It has been the same for centuries for things like architecture, newspapers, magazines and logos
+2. Stop solving other peoples problems (Means don't use uncustomizable component libraries or others designs completely)
+3. Form (design of the application) doesn't and shouldn't follow the functionality. It should rather be harmonic with the function.
+4. Every force evolves the form of the app. The forces which are constantly acting on the app are: UI design, Information architecture, HTML/CSS, Frontend framework, Backend APIs, Programming and processes.
+5. Less is more but be aware of the following dangers.
+    I) A button, menu item etc should look like one as people are used to it since the introduction of the computers
+    II) Hiding elements is not good. For example, using icons as buttons.
+6. Balance creates visual order and signals relationships. Means keep the padding and margin and spacing similar throughout the app. Create a rhythm for easy data consummation. Here rhythm means related data will follow the same spacing, font-size and layout (if applicable). By following the same rhythm we create a harmony in the entire application.
+7. Creating harmony is important, however we also need to create visual dominance and allow the user to go from the most dominant to the second dominant and so on. Dominance is created through 3 ways:- 1. Size (bigger), contrast (darker) this is more effective then size, negative spacing or proximity is more effective then contrast at creating dominance.
+8. Alignment takes precedence over dominance. Most UI can be improved with the help of alignment. Align everything with the design.
+9. Proximity determines the relationship between the elements. Close means closely related. Proximity describes relationships. So group and organize related content with proximity.
+10. Bright colors should only be used as visual accents. Light colors are always the default.
+11. Color is to be used functionally to communicate and influence different parts and not to be used as decorative pieces.
+12. The highest emotional response is obtained by contrasting red, white and black. Red=urgency, alarm and love. black=counter-culture, timeless. white=purity, innocence. pink=romance,admiration and harmony. blue= business, ocean, sky, innovation. green=nature, organic, calming. yellow=optimism, happiness, warmth, joy. purple=royalty, wealth, luxury. brown=earth, home, friendship. Consider colors based on the emotional response needed for the application being created and use the same color throughout the application.
+13. 4 color variants required for good UI. shadows, midtones, highlights, accents. These are usually picked from the logo itself. But it is always good to have low saturation of the same color.
+14. Contrast wins over color.
+15. 2 typefaces at max (no more then 2 font families) and if we are selecting 2 font families then the character widths and weights of each font should be complementary. Eg: Avenir & Georgia. Secondly, limit line width to 30-40 on mobile and 60 on desktop screens. Apart from google fonts the rest have horrible kerning so don't use anything other then google fonts for choosing a font family.
