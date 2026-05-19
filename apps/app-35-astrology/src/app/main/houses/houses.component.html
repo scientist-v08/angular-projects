@@ -1,7 +1,7 @@
 <div
     class="w-full mt-2 bg-white rounded-2xl p-6 flex flex-col gap-4 rotate-0 box-border"
-    [class.h-[46rem]]="activeStep() == 1"
-    [class.h-[42rem]]="activeStep() != 1"
+    [class.md:h-[46rem]]="activeStep() == 1"
+    [class.md:h-[42rem]]="activeStep() != 1"
 >
     <h4 class="font-black font-lexend text-lg">Effects of the houses</h4>
     <p-stepper [linear]="true" [value]="activeStep()" (valueChange)="onStepChange($event)">
@@ -14,7 +14,7 @@
             <!-- Rasi Chart -->
             <p-step-panel [value]="1">
                 <ng-template pTemplate="content" let-activateCallback="activateCallback">
-                    <div class="grid grid-cols-3 gap-4">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <div class="mb-4">
                             <label
                                 class="block mb-2 after:content-['*'] after:ml-1 after:text-red-500"
@@ -327,7 +327,7 @@
             <!-- Navamsha Chart -->
             <p-step-panel [value]="2">
                 <ng-template pTemplate="content" let-activateCallback="activateCallback">
-                    <div class="grid grid-cols-3 gap-4">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <div class="mb-4">
                             <label
                                 class="block mb-2 after:content-['*'] after:ml-1 after:text-red-500"

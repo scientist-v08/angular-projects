@@ -13,7 +13,7 @@ import { AstroSvgComponent } from '../svg/astrosvg.component';
         </div>
 
         <!-- Navigation Section -->
-        <div class="h-full flex flex-col justify-between pl-4 pr-4">
+        <div class="h-full flex flex-col justify-between pl-4 pr-4 mt-12">
             <!-- Routes Subsection -->
             <div class="w-full h-[17rem] flex flex-col gap-4">
                 <a

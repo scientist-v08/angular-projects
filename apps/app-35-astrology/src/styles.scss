@@ -3,3 +3,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.p-menubar {
+    @apply block flex h-full w-full bg-[#522793] md:hidden !important;
+}
+
+.p-menubar-root-list {
+    @apply bg-[#522793] !important;
+}
+
+.p-menubar-item-label {
+    @apply text-white hover:text-black !important;
+}
+
+.p-menubar-button {
+    @apply text-white hover:text-black !important;
+}
